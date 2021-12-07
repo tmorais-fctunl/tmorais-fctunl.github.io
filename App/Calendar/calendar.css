@@ -2,8 +2,8 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(7, minmax(200px, 1fr));
-  grid-template-rows: 50px;
-  grid-auto-rows: 140px;
+  grid-template-rows: 5vh;
+  grid-auto-rows: 75vh;
   overflow: auto;
 
   &-container {
@@ -45,18 +45,28 @@
   }
 }
 
-.day {
-  border-bottom: 1px solid rgba(166, 168, 179, 0.12);
-  border-right: 1px solid rgba(166, 168, 179, 0.12);
+.day-title {
+  display:inline-block;
   text-align: right;
   padding: 14px 20px;
   letter-spacing: 1px;
   font-size: 12px;
+
+}
+
+.day {
+  border-bottom: 1px solid rgba(166, 168, 179, 0.12);
+  border-right: 1px solid rgba(166, 168, 179, 0.12);
+  letter-spacing: 1px;
+  font-size: 12px;
   box-sizing: border-box;
   color: #98a0a6;
-  position: relative;
-  pointer-events: none;
+  position: relative
   z-index: 1;
+  overflow:auto;
+  max-height: 100%;
+  max-width:100%;
+  margin-left:10px;
 
   &:nth-of-type(7n + 7) {
     border-right: 0;
@@ -128,9 +138,10 @@
 }
 
 .task {
-  border-left-width: 3px;
-  padding: 8px 12px;
-  margin: 10px;
+  border-left-width: 15px;
+  border-radius: 10px 10px 10px 10px;
+  padding: 0px 12px 0px 12px;
+  margin-top: 10px;
   border-left-style: solid;
   font-size: 14px;
   position: relative;
