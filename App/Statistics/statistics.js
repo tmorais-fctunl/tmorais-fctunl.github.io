@@ -46,20 +46,21 @@ function statistics()
         options:
         {
             responsive: true,
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
             title:
             {
                 display: true,
                 text: 'World population per region (in millions)'
             },
+            responsiveAnimationDuration: 1500
 
         }
     };
 
     const areaChart = new Chart(area_ctx, areaConfig)
-    const areaChartFull = new Chart(area_ctx_full, areaConfig)
+        const areaChartFull = new Chart(area_ctx_full, areaConfig)
 
-    const bar_ctx = document.getElementById('barChart').getContext('2d');
+        const bar_ctx = document.getElementById('barChart').getContext('2d');
     const bar_ctx_full = document.getElementById('barChartFull').getContext('2d');
     const bar_data =
     {
@@ -78,7 +79,7 @@ function statistics()
         options:
         {
             responsive: true,
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
             legend:
             {
                 display: false
@@ -87,13 +88,14 @@ function statistics()
             {
                 display: true,
                 text: 'Predicted world population (millions) in 2050'
-            }
+            },
+            responsiveAnimationDuration: 1500
         }
     };
     const barChart = new Chart(bar_ctx, bar_data)
-    const barChartFull = new Chart(bar_ctx_full, bar_data)
+        const barChartFull = new Chart(bar_ctx_full, bar_data)
 
-    const pie_ctx = document.getElementById('pieChart').getContext('2d');
+        const pie_ctx = document.getElementById('pieChart').getContext('2d');
     const pie_ctx_full = document.getElementById('pieChartFull').getContext('2d');
 
     const DATA_COUNT = 5;
@@ -131,7 +133,7 @@ function statistics()
         options:
         {
             responsive: true,
-            maintainAspectRatio:false,
+            maintainAspectRatio: false,
             plugins:
             {
                 legend:
@@ -143,9 +145,43 @@ function statistics()
                     display: true,
                     text: 'Chart.js Pie Chart'
                 }
-            }
+            },
+            responsiveAnimationDuration: 1500
         },
     };
-    const pieChart = new Chart(pie_ctx, pieConfig)
-    const pieChartFull = new Chart(pie_ctx_full, pieConfig)
+    const pieChart = new Chart(pie_ctx, pieConfig);
+    const pieChartFull = new Chart(pie_ctx_full, pieConfig);
+
+}
+
+function saveNote(graph)
+{
+    let text;
+    let list;
+    if (graph == "pie")
+    {
+        text = document.getElementById("pie-new-note").value;
+        list = document.getElementById("pie-notes-list");
+    }
+    if (graph == "bar")
+    {
+        text = document.getElementById("bar-new-note").value;
+        list = document.getElementById("bar-notes-list");
+    }
+    if (graph == "area")
+    {
+        text = document.getElementById("area-new-note").value;
+        list = document.getElementById("area-notes-list");
+    }
+    if (text != "")
+    {
+        var node = document.createElement("LI"); // Create a <li> node
+        child = `<li class="list-item text">
+              <div class="div-block-21">
+                <div class="text-block-6">${text}</div>
+              </div><a id="del-button-pie" href="#" class="button-15 w-button">X</a>
+            </li>`
+            node.innerHTML = child
+            list.appendChild(node);
+    }
 }
