@@ -175,13 +175,22 @@ function saveNote(graph)
     }
     if (text != "")
     {
-        var node = document.createElement("LI"); // Create a <li> node
-        child = `<li class="list-item text">
-              <div class="div-block-21">
+        var id = `${list.id}-${list.getElementsByTagName("li").length}`;
+        var node = document.createElement("LI");
+        node.setAttribute("id", id);
+        node.classList.add("list-item");
+
+        child = `<div class="div-block-21">
                 <div class="text-block-6">${text}</div>
-              </div><a id="del-button-pie" href="#" class="button-15 w-button">X</a>
-            </li>`
-            node.innerHTML = child
-            list.appendChild(node);
+              </div><a onclick="deleteNote('${id}')" href="#" class="button-15 w-button">X</a>`;
+
+        node.innerHTML = child
+        list.appendChild(node);
     }
+}
+
+function deleteNote(id)
+{
+    var item = document.getElementById(id);
+    item.parentNode.removeChild(item);
 }
