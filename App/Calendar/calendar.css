@@ -3,55 +3,44 @@
   width: 100%;
   grid-template-columns: repeat(7, minmax(200px, 1fr));
   grid-template-rows: 5vh;
-  grid-auto-rows: 75vh;
+  grid-auto-rows: 78vh;
   overflow: auto;
-
-  &-container {
-    width: 90%;
-    margin: auto;
-    overflow: hidden;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    background: #fff;
-    max-width: 1200px;
-  }
-
-  &-header {
-    text-align: center;
-    padding: 20px 0;
-    background: linear-gradient(to bottom, rgb(250, 251, 253) 0%,rgba(255,255,255,0) 100%);
-    border-bottom: 1px solid rgba(166, 168, 179, 0.12);
-
-    h1 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    p {
-      margin: 5px 0 0 0;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(#51565d, .4);
-    }
-
-    button {
-      background: 0;
-      border: 0;
-      padding: 0;
-      color: rgba(#51565d, .7);
-      cursor: pointer;
-      outline: 0;
-    }
-  }
+}
+.calendar-container {
+  width: 100vw;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: #fff;
 }
 
-.day-title {
-  display:inline-block;
-  text-align: right;
-  padding: 14px 20px;
-  letter-spacing: 1px;
-  font-size: 12px;
+.calendar-header {
+  text-align: center;
+  padding: 20px 0;
+  background: linear-gradient(to bottom, rgb(250, 251, 253) 0%,rgba(255,255,255,0) 100%);
+  border-bottom: 1px solid rgba(166, 168, 179, 0.12);
+}
 
+.calendar-header h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.calendar p {
+  margin: 5px 0 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(#51565d, .4);
+}
+
+.calendar .button {
+  background: 0;
+  border: 0;
+  padding: 0;
+  color: rgba(#51565d, .7);
+  cursor: pointer;
+  outline: 0;
 }
 
 .day {
@@ -72,6 +61,15 @@
 .day:hover {
   background-color: #FFFFF1;
   cursor:pointer;
+}
+
+.day-title {
+  display:inline-block;
+  text-align: right;
+  padding: 14px 20px;
+  letter-spacing: 1px;
+  font-size: 12px;
+
 }
 
 .task {
@@ -107,13 +105,16 @@
   display:inline-block;
   position:fixed;
   right:1.5vh;
-  bottom:5vh;
+  bottom:3vh;
   z-index:3;
 }
 
 .btn-create-event {
-  width:200px;
-  height:100px;
+  border-style: solid;
+  border-color:rgba(44, 80, 42, 0.71);
+  border-width:2px;
+  width:9vw;
+  height:9vh;
   display:inline-block;
   background-color: rgba(44, 80, 42, 0.71); /*escolha da bruna*/
   border-radius: 10px 10px 10px 10px;
@@ -122,9 +123,54 @@
 }
 
 .btn-create-event:hover {
-    background-color: rgba(44, 80, 42, 0.80)
+  background-color: rgba(44, 80, 42, 0.80)
 }
 
 .btn-create-event:active {
   background-color: rgba(44, 80, 42, 0.90)
+}
+
+.whole-page-container {
+  display:none;
+  position:fixed;
+  width:80vw;
+  height:100vh;
+  z-index:3;
+}
+
+.create-event-container {
+  /*display: none*/;
+  position:fixed;
+  z-index:3;
+  background-color: lightgray;
+  border-radius: 10px 10px 10px 10px;
+  width:50vw;
+  max-height:80vh;
+  top:20vh;
+  bottom:20vh;
+  left:35vw;
+  overflow:auto;
+}
+
+.date-end-class {
+
+}
+
+.waitingForConnection {
+  -webkit-animation-name: blinker;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+  -webkit-animation-duration: 1.7s;
+}
+
+.blink_me {
+  animation: blinker 1s linear 5; /*Not infinite*/
+}
+
+@keyframes blinker {
+  50% {
+    border-style: solid;
+    border-color:red;
+    box-shadow: 2px 2px 5px -1px
+  }
 }
