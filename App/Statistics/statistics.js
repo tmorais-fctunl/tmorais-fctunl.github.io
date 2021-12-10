@@ -110,6 +110,10 @@ function reloadGraphs()
         {
             responsive: true,
             maintainAspectRatio: false,
+            legend:
+            {
+                display: false
+            },
             title:
             {
                 display: true,
@@ -147,11 +151,6 @@ function reloadGraphs()
             {
                 display: false
             },
-            title:
-            {
-                display: true,
-                text: 'Predicted world population (millions) in 2050'
-            },
             responsiveAnimationDuration: 1500
         }
     };
@@ -172,18 +171,19 @@ function reloadGraphs()
     const pie_data =
     {
         labels: [
-            'Red',
-            'Blue',
-            'Yellow'
+            'Studying',
+            'Gaming',
+            'Sleeping',
+            'Exercising'
         ],
         datasets: [
             {
-                label: 'My First Dataset',
-                data: [300, 50, 100],
+                data: [300, 50, 100, 20],
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
+                    'rgb(255, 205, 86)',
+                    '#3cba9f'
                 ],
                 hoverOffset: 4
             }
@@ -197,17 +197,9 @@ function reloadGraphs()
         {
             responsive: true,
             maintainAspectRatio: false,
-            plugins:
+            legend:
             {
-                legend:
-                {
-                    position: 'top',
-                },
-                title:
-                {
-                    display: true,
-                    text: 'Chart.js Pie Chart'
-                }
+                display: false
             },
             responsiveAnimationDuration: 1500
         },
@@ -250,20 +242,22 @@ function loadStatistic(id)
     reloadGraphs();
 }
 
-function deleteFromStatisticsList(id){
+function deleteFromStatisticsList(id)
+{
     deleteFromList(id);
     var list = document.getElementById("saved-statistics-list");
     var elems = list.getElementsByTagName("li");
 
-    if(elems.length == 0)
+    if (elems.length == 0)
         document.getElementById("saved-statistics-side-menu").style.display = "none";
 }
 
-function loadMoreStatistics(){
+function loadMoreStatistics()
+{
     var list = document.getElementById("saved-statistics-list");
     var elems = list.getElementsByTagName("li");
 
-    if(elems.length == 0)
+    if (elems.length == 0)
         document.getElementById("no-more-results-div").style.display = "block";
     else
         document.getElementById("no-more-results-div").style.display = "none";
