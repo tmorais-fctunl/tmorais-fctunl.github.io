@@ -259,6 +259,17 @@ function deleteFromStatisticsList(id){
         document.getElementById("saved-statistics-side-menu").style.display = "none";
 }
 
+function loadMoreStatistics(){
+    var list = document.getElementById("saved-statistics-list");
+    var elems = list.getElementsByTagName("li");
+
+    if(elems.length == 0)
+        document.getElementById("no-more-results-div").style.display = "block";
+    else
+        document.getElementById("no-more-results-div").style.display = "none";
+
+}
+
 function saveStatistic()
 {
     document.getElementById("statistics-something-went-wrong-div").style.display = "none";

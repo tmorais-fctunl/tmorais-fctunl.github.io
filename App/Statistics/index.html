@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Statistics</title>
-  <link href="https://uploads-ssl.webflow.com/6060bc6b0c9dff32cac2c85d/css/mykefrs-wondrous-project.webflow.93dd1bfb4.css" rel="stylesheet" type="text/css" />
+  <link href="https://uploads-ssl.webflow.com/6060bc6b0c9dff32cac2c85d/css/mykefrs-wondrous-project.webflow.040d56c9e.css" rel="stylesheet" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script src="statistics.js"></script>
 </head>
@@ -46,12 +46,13 @@
         </div>
       </div>
       <div class="div-block-25">
-        <a id="load-statistics-button" data-w-id="1df01b85-caf4-4f10-0273-3de672265b42" href="#" class="button-17 w-button">More Statistics</a>
+        <a id="load-statistics-button" data-w-id="1df01b85-caf4-4f10-0273-3de672265b42" href="#" class="button-17 w-button" onclick="loadMoreStatistics()">More Statistics</a>
       </div>
     </div>
     <div id="Preguica" class="perguica_img"></div>
     <div id="saved-statistics-side-menu" class="loadstatisticssidebar">
       <a data-w-id="8266c549-3a39-f1b9-5bbd-3131508430a2" href="#" class="button-13 w-button">X</a>
+      <div class="text-block-11" style="display:none;" id="no-more-results-div">No results</div>
       <div class="div-block-26">
         <ul id="saved-statistics-list" role="list" class="list-2 w-list-unstyled"></ul>
       </div>
