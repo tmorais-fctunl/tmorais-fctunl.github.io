@@ -151,7 +151,6 @@ function statistics()
     };
     const pieChart = new Chart(pie_ctx, pieConfig);
     const pieChartFull = new Chart(pie_ctx_full, pieConfig);
-
 }
 
 function saveNote(graph)
@@ -182,15 +181,48 @@ function saveNote(graph)
 
         child = `<div class="div-block-21">
                 <div class="text-block-6">${text}</div>
-              </div><a onclick="deleteNote('${id}')" href="#" class="button-15 w-button">X</a>`;
+              </div><a onclick="deleteFromList('${id}')" href="#" class="button-15 w-button">X</a>`;
 
-        node.innerHTML = child
+        node.innerHTML = child;
         list.appendChild(node);
     }
 }
 
-function deleteNote(id)
+function deleteFromList(id)
 {
     var item = document.getElementById(id);
     item.parentNode.removeChild(item);
 }
+
+function apply()  {}
+
+function saveStatistic()
+{
+    var list = document.getElementById("saved-statistics-list");
+    var id = `${list.id}-${list.getElementsByTagName("li").length}`;
+    var node = document.createElement("LI");
+    node.setAttribute("id", id);
+    node.classList.add("list-item-2");
+
+    var child = `<div class="liststatisticdiv">
+              <div class="text-block-7">
+                From:
+              </div>
+              <div id="from-statistic-div" class="statisticssettingsdiv">
+                <input type="date" disabled="disabled" /><input type="time" disabled="disabled" />
+              </div>
+              <div class="text-block-8">
+                To:
+              </div>
+              <div id="to-statistic-div" class="statisticssettingsdiv">
+                <input type="date" disabled="disabled" /><input type="time" disabled="disabled" />
+              </div>
+              <div class="div-block-27">
+                <a id="delete-statistic-button" onclick="deleteFromList('${id}')" href="#" class="button-16-delete w-button">Delete</a><a id="load-statistic-button" data-w-id="86468e3f-a20e-4ffd-6875-9f1f8d6cdad7" href="#" class="button-16 w-button">Load</a>
+              </div>
+            </div>`;
+
+    node.innerHTML = child;
+    list.appendChild(node);
+}
+
