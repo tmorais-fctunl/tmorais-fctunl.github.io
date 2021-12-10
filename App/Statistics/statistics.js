@@ -1,6 +1,69 @@
 
 function statistics()
 {
+    var today = new Date();
+    var today_date = today.getFullYear() + '-' + ((today.getMonth() + 1) < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate() + 'T' + (today.getHours() < 10 ? '0' : '') + today.getHours() + ':' + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    var yesterday_date = yesterday.getFullYear() + '-' + ((yesterday.getMonth() + 1) < 10 ? '0' : '') + (yesterday.getMonth() + 1) + '-' + (yesterday.getDate() < 10 ? '0' : '') + yesterday.getDate() + 'T' + (yesterday.getHours() < 10 ? '0' : '') + yesterday.getHours() + ':' + (yesterday.getMinutes() < 10 ? '0' : '') + yesterday.getMinutes();
+
+    from_date = document.getElementById("statistics-from-date");
+    to_date = document.getElementById("statistics-to-date");
+
+    from_date.value = yesterday_date;
+    to_date.value = today_date;
+
+    reloadGraphs();
+}
+
+function saveNote(graph)
+{
+    let text;
+    let list;
+    if (graph == "pie")
+    {
+        text = document.getElementById("pie-new-note").value;
+        list = document.getElementById("pie-notes-list");
+    }
+    if (graph == "bar")
+    {
+        text = document.getElementById("bar-new-note").value;
+        list = document.getElementById("bar-notes-list");
+    }
+    if (graph == "area")
+    {
+        text = document.getElementById("area-new-note").value;
+        list = document.getElementById("area-notes-list");
+    }
+    if (text != "")
+    {
+        var id = `${list.id}-${list.getElementsByTagName("li").length}`;
+        var node = document.createElement("LI");
+        node.setAttribute("id", id);
+        node.classList.add("list-item");
+
+        child = `<div class="div-block-21">
+                <div class="text-block-6">${text}</div>
+              </div><a onclick="deleteFromList('${id}')" href="#" class="button-15 w-button">X</a>`;
+
+        node.innerHTML = child;
+        list.appendChild(node);
+    }
+}
+
+function deleteFromList(id)
+{
+    var item = document.getElementById(id);
+    item.parentNode.removeChild(item);
+}
+
+function reloadGraphs()
+{
+    from_date = document.getElementById("statistics-from-date").value;
+    to_date = document.getElementById("statistics-to-date").value;
+
     const area_ctx = document.getElementById('areaChart').getContext('2d');
     const area_ctx_full = document.getElementById('areaChartFull').getContext('2d');
 
@@ -57,10 +120,10 @@ function statistics()
         }
     };
 
-    const areaChart = new Chart(area_ctx, areaConfig)
-        const areaChartFull = new Chart(area_ctx_full, areaConfig)
+    const areaChart = new Chart(area_ctx, areaConfig);
+    const areaChartFull = new Chart(area_ctx_full, areaConfig);
 
-        const bar_ctx = document.getElementById('barChart').getContext('2d');
+    const bar_ctx = document.getElementById('barChart').getContext('2d');
     const bar_ctx_full = document.getElementById('barChartFull').getContext('2d');
     const bar_data =
     {
@@ -92,8 +155,8 @@ function statistics()
             responsiveAnimationDuration: 1500
         }
     };
-    const barChart = new Chart(bar_ctx, bar_data)
-        const barChartFull = new Chart(bar_ctx_full, bar_data)
+    const barChart = new Chart(bar_ctx, bar_data);
+    const barChartFull = new Chart(bar_ctx_full, bar_data)
 
         const pie_ctx = document.getElementById('pieChart').getContext('2d');
     const pie_ctx_full = document.getElementById('pieChartFull').getContext('2d');
@@ -153,53 +216,80 @@ function statistics()
     const pieChartFull = new Chart(pie_ctx_full, pieConfig);
 }
 
-function saveNote(graph)
+function apply()
 {
-    let text;
-    let list;
-    if (graph == "pie")
-    {
-        text = document.getElementById("pie-new-note").value;
-        list = document.getElementById("pie-notes-list");
-    }
-    if (graph == "bar")
-    {
-        text = document.getElementById("bar-new-note").value;
-        list = document.getElementById("bar-notes-list");
-    }
-    if (graph == "area")
-    {
-        text = document.getElementById("area-new-note").value;
-        list = document.getElementById("area-notes-list");
-    }
-    if (text != "")
-    {
-        var id = `${list.id}-${list.getElementsByTagName("li").length}`;
-        var node = document.createElement("LI");
-        node.setAttribute("id", id);
-        node.classList.add("list-item");
+    document.getElementById("statistics-something-went-wrong-div").style.display = "none";
 
-        child = `<div class="div-block-21">
-                <div class="text-block-6">${text}</div>
-              </div><a onclick="deleteFromList('${id}')" href="#" class="button-15 w-button">X</a>`;
+    from_date = document.getElementById("statistics-from-date").value;
+    to_date = document.getElementById("statistics-to-date").value;
 
-        node.innerHTML = child;
-        list.appendChild(node);
+    if (from_date == "" || to_date == "")
+    {
+        document.getElementById("statistics-something-went-wrong-div").style.display = "block";
+        return;
     }
+
+    reloadGraphs();
 }
 
-function deleteFromList(id)
+function loadStatistic(id)
 {
-    var item = document.getElementById(id);
-    item.parentNode.removeChild(item);
+    document.getElementById("saved-statistics-side-menu").style.display = "none";
+    document.getElementById("statistics-something-went-wrong-div").style.display = "none";
+    document.getElementById("already-exists-statistic-message-div").style.display = "none";
+
+    statistic_from = document.getElementById(`statistics-from-date-${id}`).value;
+    statistic_to = document.getElementById(`statistics-to-date-${id}`).value;
+
+    from_date = document.getElementById("statistics-from-date");
+    to_date = document.getElementById("statistics-to-date");
+
+    from_date.value = statistic_from;
+    to_date.value = statistic_to;
+
+    reloadGraphs();
 }
 
-function apply()  {}
+function deleteFromStatisticsList(id){
+    deleteFromList(id);
+    var list = document.getElementById("saved-statistics-list");
+    var elems = list.getElementsByTagName("li");
+
+    if(elems.length == 0)
+        document.getElementById("saved-statistics-side-menu").style.display = "none";
+}
 
 function saveStatistic()
 {
+    document.getElementById("statistics-something-went-wrong-div").style.display = "none";
+    document.getElementById("already-exists-statistic-message-div").style.display = "none";
+
+    from_date = document.getElementById("statistics-from-date").value;
+    to_date = document.getElementById("statistics-to-date").value;
+
+    if (from_date == "" || to_date == "")
+    {
+        document.getElementById("statistics-something-went-wrong-div").style.display = "block";
+        return;
+    }
+
     var list = document.getElementById("saved-statistics-list");
-    var id = `${list.id}-${list.getElementsByTagName("li").length}`;
+
+    var elems = list.getElementsByTagName("li");
+    for (var i = 0; i < elems.length; i++)
+    {
+        elem_id = elems[i].id.split("saved-statistics-list-")[1];
+        elem_from = document.getElementById(`statistics-from-date-${elem_id}`);
+        elem_to = document.getElementById(`statistics-to-date-${elem_id}`);
+
+        if (elem_from.value == from_date && elem_to.value == to_date)
+        {
+            document.getElementById("already-exists-statistic-message-div").style.display = "block";
+            return;
+        }
+    }
+
+    var id = `${list.id}-${elems.length}`;
     var node = document.createElement("LI");
     node.setAttribute("id", id);
     node.classList.add("list-item-2");
@@ -209,20 +299,20 @@ function saveStatistic()
                 From:
               </div>
               <div id="from-statistic-div" class="statisticssettingsdiv">
-                <input type="date" disabled="disabled" /><input type="time" disabled="disabled" />
+                <input id="statistics-from-date-${elems.length}" type="datetime-local" disabled="disabled" value='${from_date}' style="width: 100%"/>
               </div>
               <div class="text-block-8">
                 To:
               </div>
               <div id="to-statistic-div" class="statisticssettingsdiv">
-                <input type="date" disabled="disabled" /><input type="time" disabled="disabled" />
+                <input id="statistics-to-date-${elems.length}" type="datetime-local" disabled="disabled" value='${to_date}' style="width: 100%"/>
               </div>
               <div class="div-block-27">
-                <a id="delete-statistic-button" onclick="deleteFromList('${id}')" href="#" class="button-16-delete w-button">Delete</a><a id="load-statistic-button" data-w-id="86468e3f-a20e-4ffd-6875-9f1f8d6cdad7" href="#" class="button-16 w-button">Load</a>
+                <a id="delete-statistic-button" onclick="deleteFromStatisticsList('${id}')" href="#" class="button-16-delete w-button">Delete</a>
+                <a onclick="loadStatistic('${elems.length}')" id="load-statistic-button" data-w-id="86468e3f-a20e-4ffd-6875-9f1f8d6cdad7" href="#" class="button-16 w-button">Load</a>
               </div>
             </div>`;
 
     node.innerHTML = child;
     list.appendChild(node);
 }
-
