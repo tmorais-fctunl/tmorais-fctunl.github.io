@@ -3,11 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <title>Statistics</title>
-  <link href="https://uploads-ssl.webflow.com/6060bc6b0c9dff32cac2c85d/css/mykefrs-wondrous-project.webflow.040d56c9e.css" rel="stylesheet" type="text/css">
+  <link href="https://uploads-ssl.webflow.com/6060bc6b0c9dff32cac2c85d/css/mykefrs-wondrous-project.webflow.c4a66dacb.css" rel="stylesheet" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <script src="graphs_config.js"></script>
+  <script src="graphs.js"></script>
   <script src="statistics.js"></script>
 </head>
-<body class="body-4" onload="statistics()">
+<body class="body-4" onload="start_statistics()">
   <div class="leftsidebardiv">
     <div>
       <div class="div-block-17">
@@ -63,13 +67,13 @@
     <section id="gallery" class="gallery wf-section">
       <div class="centered-container w-container">
         <div class="gallery-grid-container">
-          <div id="BarChart" data-w-id="1c282dc2-8311-46e4-43aa-b7cebb325725" class="graphdiv w-node-_1c282dc2-8311-46e4-43aa-b7cebb325725-0565b589">
+          <div id="BarChart" data-w-id="1c282dc2-8311-46e4-43aa-b7cebb325725" class="graphdiv w-node-_1c282dc2-8311-46e4-43aa-b7cebb325725-0565b589" onclick="reloadLargeGraphs()">
             <canvas id="barChart"></canvas>
           </div>
-          <div id="PieChart" data-w-id="37e4e96e-0f72-aff7-675c-6f58dac34782" class="graphdiv w-node-_37e4e96e-0f72-aff7-675c-6f58dac34782-0565b589">
+          <div id="PieChart" data-w-id="37e4e96e-0f72-aff7-675c-6f58dac34782" class="graphdiv w-node-_37e4e96e-0f72-aff7-675c-6f58dac34782-0565b589" onclick="reloadLargeGraphs()">
             <canvas id="pieChart"></canvas>
           </div>
-          <div id="AreaChart" data-w-id="e0b1571c-5327-829c-3f3a-192c9f0ff8b2" class="graphdiv w-node-e0b1571c-5327-829c-3f3a-192c9f0ff8b2-0565b589">
+          <div id="AreaChart" data-w-id="e0b1571c-5327-829c-3f3a-192c9f0ff8b2" class="graphdiv w-node-e0b1571c-5327-829c-3f3a-192c9f0ff8b2-0565b589" onclick="reloadLargeGraphs()">
             <canvas id="areaChart"></canvas>
           </div>
         </div>
