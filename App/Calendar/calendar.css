@@ -73,7 +73,6 @@
 }
 
 .task {
-
   box-sizing:content-box;
   transition: background-color 0.2s;
   background-color: #F8F8F8;
@@ -88,12 +87,27 @@
   display:inline-block;
   z-index:2;
   box-shadow: 0px 2px 5px lightgray;
+}
 
+.task-fst {
+  border-radius: 10px 10px 0px 0px;
+}
+
+.task-mid {
+  border-radius: 0px;
+}
+
+.task-end {
+  border-radius: 0px 0px 10px 10px;
 }
 
 .task:hover {
   background-color: #F8FFFF;
   cursor:pointer;
+}
+
+.hovered_task {
+  background-color: #F8FFFF !important; 
 }
 
 .task:active {
@@ -129,6 +143,32 @@
 .btn-create-event:active {
   background-color: rgba(44, 80, 42, 0.90)
 }
+
+.add-btn {
+  background-color:white;
+}
+
+.add-btn:hover {
+  background-color:#F0F0F0;
+}
+
+.add-btn:active {
+  background-color:#F1FFF1;
+}
+
+.close-btn {
+  background-color:white;
+}
+
+.close-btn:hover {
+  background-color:#F0F0F0;
+}
+
+.close-btn:active {
+  background-color:#FFF1F1;
+}
+
+
 
 .whole-page-container {
   display:none;

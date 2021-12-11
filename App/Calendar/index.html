@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <title>Calendar</title>
   <link href="https://uploads-ssl.webflow.com/6060bc6b0c9dff32cac2c85d/css/mykefrs-wondrous-project.webflow.7967c51fe.css" rel="stylesheet" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="calendar.css" rel="stylesheet" type="text/css"/>
 </head>
 
@@ -81,77 +82,75 @@
 
         <div class="whole-page-container" id="activityFormContainer">
           <div class="create-event-container">
-          <div class="activityForm">
-            <form action="" class="form-container" style="text-align:center">
-              <label for="Name" style="display:inline-block"><b>Name</b></label>
-              <p>
-              <input type="text" placeholder="Enter Event Name" name="Name" required>
-              <p></p>
-              <div style="display:table; width:100%">
-                <div style="display:table-cell; text-align:center" class="">
-                  <label for="Date" style="display:inline-block"><b>Start Date:</b></label>
-                  <input type="date" placeholder="Start date" name="Date" min="2021-12-01" max="2021-12-07" required>
-                  <label for="Time" style="display:inline-block"><b>Start Time</b></label>
-                  <input type="time" placeholder="Start time" name="Time" required>
-                </div>
-                <div>
-                  <div style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="blink_me">
-                    <label for="Date-end" style="display:inline-block"><b>End Date:</b></label>
-                    <input type="date" placeholder="End date" name "Date-end" min="2021-12-01" max="2021-12-07" required>
-                    <label for="Time-end" style="display:inline-block"><b>End Time</b></label>
-                    <input type="time" placeholder="End time" name="Time-end" required>
+            <div class="activityForm">
+              <form onsubmit="addActivity(); return false" class="form-container" style="text-align:center">
+                <label for="Name" style="display:inline-block"><b>Name</b></label>
+                <p>
+                  <input type="text" placeholder="Enter Event Name" name="Name" required id="form_Name">
+                  <p></p>
+                  <div style="display:table; width:100%">
+                    <div style="display:table-cell; text-align:center" class="">
+                      <label for="Date" style="display:inline-block"><b>Start Date:</b></label>
+                      <input type="date" placeholder="Start date" name="Date" min="2021-12-01" max="2021-12-07" id="form_Start_date" onkeydown="return false" required>
+                      <label for="Time" style="display:inline-block"><b>Start Time</b></label>
+                      <input type="time" placeholder="Start time" name="Time" id="form_Start_time" onkeydown="return false" required>
+                    </div>
+                    <div>
+                      <div style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="blink_me">
+                        <label for="Date-end" style="display:inline-block"><b>End Date:</b></label>
+                        <input type="date" placeholder="End date" name "Date-end" min="2021-12-01" max="2021-12-07" id="form_End_date" onkeydown="return false" required>
+                        <label for="Time-end" style="display:inline-block"><b>End Time</b></label>
+                        <input type="time" placeholder="End time" name="Time-end" id="form_End_time" onkeydown="return false" required>
+                      </div>
+                    </div>
+
                   </div>
-                </div>
-
+                  <label for "Notification"><b>Notification Warning</b></label>
+                  <select placeholder="Notification" name="Notification" value="0" id="form_Notification">
+                    <option value="0" selected="selected">Never</option>
+                    <option value="1">5min</option>
+                    <option value="2">10min</option>
+                    <option value="3">30min</option>
+                    <option value="4">1h</option>
+                    <option value="5">1day</option>
+                  </select>
+                  <p></p>
+                  <label for "Frequency"><b>Frequency</b></label>
+                  <select placeholder="Frequency" name="Frequency" value="0" id="form_Frequency">
+                    <option value="0" selected="selected">None</option>
+                    <option value="1">Every day</option>
+                  </select>
+                  <p></p>
+                  <label for "Description"><b>Description</b></label>
+                  <textarea placeholder="Describe your activity" rows="4" cols="50" name="Description"></textarea>
+                  <p></p>
+                  <label for "Category"><b>Category</b></label>
+                  <select placeholder="Category" name="Category" value="0" id="form_Category">
+                    <option value="0" selected="selected">Studying</option>
+                    <option value="1">Gaming</option>
+                    <option value="2">Sleeping</option>
+                    <option value="3">Exercising</option>
+                  </select>
+                  <p></p>
+                  <label for "Color"><b>Color</b></label>
+                  <input type="color" list="presets" id="form_Color"></label>
+                  <datalist id="presets">
+                    <option value="#cccccc">Grey</option>
+                    <option value="#ffffff">White</option>
+                    <option value="#6699cc">Blue</option>
+                  </datalist>
+                  <!--<input type="time" placeholder="Duration" name="Duration" required> Make color picker-->
+                  <p></p>
+                  <button type="submit" class="add-btn">Add</button>
+                  <button type="button" class="close-btn" onclick="closeForm()">Close</button>
+                </form>
               </div>
-              <label for "Notification"><b>Notification Warning</b></label>
-              <select placeholder="Notification" name="Notification" value="0">
-                <option value="0" selected="selected">Never</option>
-                <option value="1">5min</option>
-                <option value="2">10min</option>
-                <option value="3">30min</option>
-                <option value="4">1h</option>
-                <option value="5">1day</option>
-              </select>
-              <p></p>
-              <label for "Frequency"><b>Frequency</b></label>
-              <select placeholder="Frequency" name="Frequency" value="0">
-                <option value="0" selected="selected">None</option>
-                <option value="1">Every day</option>
-              </select>
-              <p></p>
-              <label for "Description"><b>Description</b></label>
-                <textarea placeholder="Describe your activity" rows="4" cols="50" name="Description"></textarea>
-              <p></p>
-              <label for "Category"><b>Category</b></label>
-              <select placeholder="Category" name="Category" value="0">
-                <option value="0" selected="selected">Studying</option>
-                <option value="1">Gaming</option>
-                <option value="2">Sleeping</option>
-                <option value="3">Exercising</option>
-              </select>
-              <p></p>
-              <label for "Color"><b>Color</b></label>
-              <!--<input type="time" placeholder="Duration" name="Duration" required> Make color picker-->
-              <p></p>
-              <button type="button" class="btn">Login</button>
-              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-            </form>
+            </div>
           </div>
-        </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-    <script>
-    function openForm() {
-      document.getElementById("activityFormContainer").style.display = "block";
-    }
+      <script src="script.js"></script>
+    </body>
 
-    function closeForm() {
-      document.getElementById("activityFormContainer").style.display = "none";
-    }
-  </script>
-</body>
-
-</html>
+    </html>
