@@ -133,6 +133,12 @@ function startTimer() {
   }, 1000);
 }
 
+function stopTimer() {
+  timePassed = 0;
+  document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+  
+}
+
 function loadTimer(i) {
   //get index of clicked
   selectedTimerIndex = i;
