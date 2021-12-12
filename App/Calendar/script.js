@@ -403,7 +403,7 @@ function generateTasks() {
 //Script for loading saved tasks in local-storage
 function loadTasks() {
   let bot_date_lim = new Date("2021-12-01T00:00").getTime();
-  let top_date_lim = new Date("2021-12-07T00:00").getTime();
+  let top_date_lim = new Date("2021-12-07T23:59").getTime();
   task_counter = sessionStorage.getItem("task_counter");
   uniqueTasks = JSON.parse(sessionStorage.getItem("events"));
   //Run through local-storage tasks
@@ -422,9 +422,10 @@ function loadTasks() {
     alert("Looks like you have no tasks. Don't worry, i'll fill in a few for you. You can update or delete them as you want. If you end up with no tasks at all my programming forces me to fill in some again.")
     sessionStorage.setItem("events",JSON.stringify(default_events));
     loadTasks();
+    return;
     //generateTasks();
   }
-
+  sessionStorage.setItem("task_counter",task_counter);
 }
 
 function loadTask(i) {
