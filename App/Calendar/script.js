@@ -248,14 +248,43 @@ function addActivity() {
     end_date:end_day,
     start_time:start_time,
     end_time:end_time,
-    start_date_time:"0"+start_day+"-12-2021T"+start_time,
-    end_date_time:"0"+end_day+"-12-2021T"+end_time
+    start_date_time:"2021-12-0"+start_day+"T"+start_time,
+    end_date_time:"2021-12-0"+end_day+"T"+end_time
     }
 
   uniqueTasks.push(task_object);
+  task_counter++;
+
+  if (freq == "Every day"){
+    for (let i=start_day+1; i<8; i++) {
+      let width = 0;
+      width = taskLeftPos(start_day, top_pos, fst_height);
+      if (fst_height==0)
+        fst_height = 1;
+      pushTask(id,i,0,top_pos,fst_height,width,"",color,name,description);
+      let task_object = {
+        id:id,
+        name:name,
+        category:categories[category],
+        frequency:frequencies[freq],
+        notification:notifications[notif],
+        color:color,
+        description:description,
+        start_date:i,
+        end_date:i,
+        start_time:start_time,
+        end_time:end_time,
+        start_date_time:"2021-12-0"+i+"T"+start_time,
+        end_date_time:"2021-12-0"+i+"T"+end_time
+        }
+        uniqueTasks.push(task_object);
+        task_counter++;
+    }
+  }
+
   sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
 
-  task_counter++;
+
 
   alert("Task successfully added!");
   $("#form_end_date_div").removeClass("blink_me");
@@ -280,8 +309,8 @@ function generateTasks() {
       end_date:2,
       start_time:[09,15],
       end_time:[09,15],
-      start_date_time:"01-12-2021T09:15",
-      end_date_time:"02-12-2021T09:15"
+      start_date_time:"2021-12-01T09:15",
+      end_date_time:"2021-12-02T09:15"
     },
     {
       id:task_counter++,
@@ -295,8 +324,8 @@ function generateTasks() {
       end_date:3,
       start_time:[19,15],
       end_time:[19,15],
-      start_date_time:"02-12-2021T19:15",
-      end_date_time:"03-12-2021T19:15"
+      start_date_time:"2021-12-02T19:15",
+      end_date_time:"2021-12-03T19:15"
     },
     {
       id:task_counter++,
@@ -310,8 +339,8 @@ function generateTasks() {
       end_date:4,
       start_time:[09,15],
       end_time:[09,45],
-      start_date_time:"04-12-2021T09:15",
-      end_date_time:"04-12-2021T09:45"
+      start_date_time:"2021-12-04T09:15",
+      end_date_time:"2021-12-04T09:45"
     },
     {
       id:task_counter++,
@@ -325,8 +354,8 @@ function generateTasks() {
       end_date:5,
       start_time:[17,00],
       end_time:[19,00],
-      start_date_time:"05-12-2021T17:00",
-      end_date_time:"05-12-2021T19:00"
+      start_date_time:"2021-12-05T17:00",
+      end_date_time:"2021-12-05T19:00"
     },
     {
       id:task_counter++,
@@ -340,8 +369,8 @@ function generateTasks() {
       end_date:7,
       start_time:[20,00],
       end_time:[20,00],
-      start_date_time:"05-12-2021T20:00",
-      end_date_time:"07-12-2021T20:00"
+      start_date_time:"2021-12-05T20:00",
+      end_date_time:"2021-12-07T20:00"
     },
     {
       id:task_counter++,
@@ -355,8 +384,8 @@ function generateTasks() {
       end_date:7,
       start_time:[20,05],
       end_time:[23,55],
-      start_date_time:"07-12-2021T20:05",
-      end_date_time:"07-12-2021T23:55"
+      start_date_time:"2021-12-07T20:05",
+      end_date_time:"2021-12-07T23:55"
     }
   ];
   console.log(uniqueTasks);
