@@ -519,16 +519,12 @@ let changedStatistic = function ()
 
 $(document).ready(function ()
 {
-
     $("#statistics-to-date").change(changedStatistic);
-
 }
 );
 
 $(document).ready(function ()
 {
-
     $("#statistics-from-date").change(changedStatistic);
-
 }
 );

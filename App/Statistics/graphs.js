@@ -103,7 +103,7 @@ function areaDataset(events, start_date, end_date)
             let int_start = maxDate(event_start, interval_start);
             let int_end = minDate(event_end, interval_end);
 
-            let date = new Date(int_end - int_start);
+            let date = new Date(Date.UTC(1970, 0, 1, 0, 0, 0, int_end - int_start));
 
             let time = (date.getDate() - 1) * 24 + date.getHours() + date.getMinutes() / 60.0;
             switch (events[i].category)
@@ -188,9 +188,15 @@ function pieBarDataset(events, start_date, end_date)
         let int_start = maxDate(event_start, start_date);
         let int_end = minDate(event_end, end_date);
 
-        let date = new Date(int_end - int_start);
+        let date = new Date(Date.UTC(1970, 0, 1, 0, 0, 0, int_end - int_start));
 
-        let time = (date.getDate() - 1) * 24 + date.getHours() + date.getMinutes() / 60.0;
+        let time = (date.getDate() - 1) * 24 + date.getHours() + date.getMinutes() / 60.0 + date.getTimezoneOffset() / 60;
+
+        console.log(events[i].category);
+        console.log(event_start);
+        console.log(event_end);
+        console.log(date); 
+        console.log(time);
         switch (events[i].category)
         {
         case "Studying":
