@@ -50,15 +50,10 @@ function setDefaultStatistic()
     return dates;
 }
 
-async function start_statistics()
+function start_statistics()
 {
-    let response = await fetch("./statistics.txt");
-    if (response.status == 200)
-    {
-        let text_data = await response.text();
-        statistics = JSON.parse(text_data);
-    }
-
+    statistics = default_statistics;
+    
     let from_date = document.getElementById("statistics-from-date");
     let to_date = document.getElementById("statistics-to-date");
 

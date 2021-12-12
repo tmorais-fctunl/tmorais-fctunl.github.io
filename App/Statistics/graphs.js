@@ -8,8 +8,8 @@ let areaChartLarge = null;
 let area_ctx = null;
 let area_large_ctx = null;
 
-let pieChart = null
-    let pieChartLarge = null;
+let pieChart = null;
+let pieChartLarge = null;
 let pie_ctx = null;
 let pie_large_ctx = null;
 
@@ -109,31 +109,15 @@ function areaDataset(events, start_date, end_date)
             switch (events[i].category)
             {
             case "Studying":
-                console.log("Studying");
-                console.log(date);
-                console.log(time);
-                console.log(j + 1);
                 data[0][j + 1] += time;
                 break;
             case "Gaming":
-                console.log("Gaming");
-                console.log(date);
-                console.log(time);
-                console.log(j + 1);
                 data[1][j + 1] += time;
                 break;
             case "Sleeping":
-                console.log("Sleeping");
-                console.log(date);
-                console.log(time);
-                console.log(j + 1);
                 data[2][j + 1] += time;
                 break;
             case "Exercising":
-                console.log("Exercising");
-                console.log(date);
-                console.log(time);
-                console.log(j + 1);
                 data[3][j + 1] += time;
                 break;
             default:
@@ -250,16 +234,9 @@ function pieBarDataset(events, start_date, end_date)
     };
 }
 
-async function setDatasets(from_date, to_date)
+function setDatasets(from_date, to_date)
 {
-    let events = [];
-
-    let response = await fetch("../events.txt");
-    if (response.status == 200)
-    {
-        let text_data = await response.text();
-        events = JSON.parse(text_data);
-    }
+    events = default_events;
 
     let get_events = sessionStorage.getItem('events');
 
