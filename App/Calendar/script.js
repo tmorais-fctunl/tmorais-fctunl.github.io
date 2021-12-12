@@ -420,8 +420,9 @@ function loadTasks() {
     sessionStorage.setItem("task_counter",0);
     task_counter = 0;
     alert("Looks like you have no tasks. Don't worry, i'll fill in a few for you. You can update or delete them as you want. If you end up with no tasks at all my programming forces me to fill in some again.")
-    uniqueTasks=[];
-    generateTasks();
+    sessionStorage.setItem("events",default_events);
+    loadTasks();
+    //generateTasks();
   }
 
 }

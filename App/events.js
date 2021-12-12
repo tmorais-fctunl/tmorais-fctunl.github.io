@@ -139,8 +139,5 @@ const default_events = [
         "start_date_time": "2021-12-11T21:00",
         "end_date_time": "2021-12-11T23:30"
     }
-]
+];
 
-function startdefault() {
-	sessionStorage.setItem("events",default_events);
-};
