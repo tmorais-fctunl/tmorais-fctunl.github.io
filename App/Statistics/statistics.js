@@ -53,7 +53,7 @@ function setDefaultStatistic()
 function start_statistics()
 {
     statistics = default_statistics;
-    
+
     let from_date = document.getElementById("statistics-from-date");
     let to_date = document.getElementById("statistics-to-date");
 
@@ -461,6 +461,8 @@ function apply()
 
     reloadGraphs(from_date, to_date);
 
+    clearNotes();
+
     if (changed_dates)
     {
         temp_statistic =
@@ -472,10 +474,11 @@ function apply()
                 area: []
             }
         };
-        clearNotes();
         current_statistic = null;
     }
 
+    if(current_statistic != null)
+        setStatisticNotes();
     updateCurrentStatistic_SS();
 }
 
