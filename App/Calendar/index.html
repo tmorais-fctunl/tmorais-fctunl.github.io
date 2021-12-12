@@ -45,7 +45,7 @@
       </div>
       <div class="calendar-container">
         <form action="/search" class="search w-form"><input type="search" class="search-input w-input" maxlength="256" name="query" placeholder="Search…" id="search" required="" /><input type="submit" value="Search" class="search-button w-button" /></form>
-        <div class="calendar-header"><h1>December 2021</h1></div>
+        <div class="calendar-header"><h1>Paralel Universe December 2021</h1></div>
         <div class="calendar">
           <span style="display:table"><div style="display:table-cell; text-align:center" class="day-name">Mon</div><div style="display:table-cell; text-align:center; color:gray" class="day-name">1</div></span>
           <span style="display:table"><div style="display:table-cell; text-align:center" class="day-name">Tue</div><div style="display:table-cell; text-align:center; color:gray" class="day-name">2</div></span>
@@ -56,12 +56,8 @@
           <span style="display:table"><div style="display:table-cell; text-align:center" class="day-name">Sun</div><div style="display:table-cell; text-align:center; color:gray" class="day-name">7</div></span>
 
           <div id="day-1" class="day">
-            <div class="task">AtividadeAtividade</div>
-            <div class="task">AtividadeAtividadeAtividade</div>
-            <div class="task">AtividadeAtividadeAtividadeAtividade</div>
           </div>
           <div id="day-2" class="day">
-            <div class="task" style="position:absolute;top:66.50%">futebol</div>
           </div>
           <div id="day-3" class="day">
           </div>
@@ -122,7 +118,7 @@
                   </select>
                   <p></p>
                   <label for "Description"><b>Description</b></label>
-                  <textarea placeholder="Describe your activity" rows="4" cols="50" name="Description"></textarea>
+                  <textarea placeholder="Describe your activity" rows="4" cols="50" name="Description" id="form_description"></textarea>
                   <p></p>
                   <label for "Category"><b>Category</b></label>
                   <select placeholder="Category" name="Category" value="0" id="form_Category">
@@ -147,7 +143,74 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="whole-page-container" id="ActivityUpdateFormContainer">
+          <div class="create-event-container">
+            <div class="activityForm">
+              <form onsubmit="; return false" class="form-container" style="text-align:center">
+                <label for="Name" style="display:inline-block"><b>Name</b></label>
+                <p>
+                  <input type="text" placeholder="Enter Event Name" name="Name" required id="updateform_Name">
+                  <p></p>
+                  <div style="display:table; width:100%">
+                    <div style="display:table-cell; text-align:center" class="">
+                      <label for="Date" style="display:inline-block"><b>Start Date:</b></label>
+                      <input type="date" placeholder="Start date" name="Date" min="2021-12-01" max="2021-12-07" id="updateform_Start_date" onkeydown="return false" required>
+                      <label for="Time" style="display:inline-block"><b>Start Time</b></label>
+                      <input type="time" placeholder="Start time" name="Time" id="updateform_Start_time" onkeydown="return false" required>
+                    </div>
+                    <div>
+                      <div style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="blink_me">
+                        <label for="Date-end" style="display:inline-block"><b>End Date:</b></label>
+                        <input type="date" placeholder="End date" name "Date-end" min="2021-12-01" max="2021-12-07" id="updateform_End_date" onkeydown="return false" required>
+                        <label for="Time-end" style="display:inline-block"><b>End Time</b></label>
+                        <input type="time" placeholder="End time" name="Time-end" id="updateform_End_time" onkeydown="return false" required>
+                      </div>
+                    </div>
 
+                  </div>
+                  <label for "Notification"><b>Notification Warning</b></label>
+                  <select placeholder="Notification" name="Notification" value="0" id="updateform_Notification">
+                    <option value="0" selected="selected">Never</option>
+                    <option value="1">5min</option>
+                    <option value="2">10min</option>
+                    <option value="3">30min</option>
+                    <option value="4">1h</option>
+                    <option value="5">1day</option>
+                  </select>
+                  <p></p>
+                  <label for "Frequency"><b>Frequency</b></label>
+                  <select placeholder="Frequency" name="Frequency" value="0" id="updateform_Frequency">
+                    <option value="0" selected="selected">None</option>
+                    <option value="1">Every day</option>
+                  </select>
+                  <p></p>
+                  <label for "Description"><b>Description</b></label>
+                  <textarea placeholder="Describe your activity" rows="4" cols="50" name="Description" id="updateform_Description"></textarea>
+                  <p></p>
+                  <label for "Category"><b>Category</b></label>
+                  <select placeholder="Category" name="Category" value="0" id="updateform_Category">
+                    <option value="0" selected="selected">Studying</option>
+                    <option value="1">Gaming</option>
+                    <option value="2">Sleeping</option>
+                    <option value="3">Exercising</option>
+                  </select>
+                  <p></p>
+                  <label for "Color"><b>Color</b></label>
+                  <input type="color" list="presets" id="updateform_Color"></label>
+                  <datalist id="presets">
+                    <option value="#cccccc">Grey</option>
+                    <option value="#ffffff">White</option>
+                    <option value="#6699cc">Blue</option>
+                  </datalist>
+                  <!--<input type="time" placeholder="Duration" name="Duration" required> Make color picker-->
+                  <p></p>
+                  <button type="submit" class="add-btn">Update</button>
+                  <button type="button" class="close-btn" onclick="closeUpdateForm()">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <script src="script.js"></script>
