@@ -285,7 +285,7 @@ function addActivity() {
     }
   }
 
-  sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  sessionStorage.setItem("events",JSON.stringify(uniqueTasks));
   sessionStorage.setItem("task_counter",task_counter);
 
 
@@ -396,19 +396,24 @@ function generateTasks() {
     uniqueTasks.push(gen_tasks[i]);
     loadTask(uniqueTasks.indexOf(gen_tasks[i]));
   }
-  sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  sessionStorage.setItem("events",JSON.stringify(uniqueTasks));
   sessionStorage.setItem("task_counter",task_counter);
 }
 
 //Script for loading saved tasks in local-storage
 function loadTasks() {
+  let bot_date_lim = new Date("2021-12-01T00:00").getTime();
+  let top_date_lim = new Date("2021-12-07T00:00").getTime();
   task_counter = sessionStorage.getItem("task_counter");
-  uniqueTasks = JSON.parse(sessionStorage.getItem("Calendar_tasks"));
+  uniqueTasks = JSON.parse(sessionStorage.getItem("events"));
   //Run through local-storage tasks
   if (uniqueTasks!=null) {
     for (let i=0; i<uniqueTasks.length; i++) {
       task_counter++;
-      loadTask(i);
+      let startdate = new Date(uniqueTasks[i].start_date_time).getTime();
+      let enddate = new Date(uniqueTasks[i].end_date_time).getTime();
+      if (startdate>=bot_date_lim && startdate <= top_date_lim && enddate>=bot_date_lim && enddate <= top_date_lim)
+        loadTask(i);
     }
   }
   else {
@@ -494,7 +499,7 @@ function deleteTask(index) {
   console.log(uniqueTasks);
   uniqueTasks.splice(index,1);
   console.log(uniqueTasks);
-  sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  sessionStorage.setItem("events",JSON.stringify(uniqueTasks));
   closeUpdateForm();
   clearUpdateForm();
 

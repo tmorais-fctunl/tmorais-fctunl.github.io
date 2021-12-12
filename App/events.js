@@ -140,3 +140,5 @@ const default_events = [
         "end_date_time": "2021-12-11T23:30"
     }
 ]
+
+sessionStorage.setItem("events",default_events);
