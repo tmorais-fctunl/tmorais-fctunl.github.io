@@ -1,143 +1,154 @@
-const default_events = [
+const default_events =
+    [
     {
+        "id": 0,
+        "name": "Estudar AM1",
         "category": "Studying",
-        "start_date_time": "2021-12-05T00:00",
-        "end_date_time": "2021-12-12T00:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tou tramado",
+        "start_date": 1,
+        "end_date": 1,
+        "start_time": [9, 15],
+        "end_time": [14, 15],
+        "start_date_time": "2021-12-01T09:15",
+        "end_date_time": "2021-12-02T09:15"
     },
     {
-        "category": "Gaming",
-        "start_date_time": "2021-12-05T00:00",
-        "end_date_time": "2021-12-05T00:30"
-    },
-    {
-        "category": "Sleeping",
-        "start_date_time": "2021-12-05T01:00",
-        "end_date_time": "2021-12-05T08:00"
-    },
-    {
-        "category": "Exercising",
-        "start_date_time": "2021-12-05T09:00",
-        "end_date_time": "2021-12-05T11:00"
-    },
-    {
+        "id": 1,
+        "name": "Estudar AM2",
         "category": "Studying",
-        "start_date_time": "2021-12-05T12:30",
-        "end_date_time": "2021-12-05T14:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tou tramado 2",
+        "start_date": 2,
+        "end_date": 3,
+        "start_time": [19, 15],
+        "end_time": [19, 15],
+        "start_date_time": "2021-12-02T19:15",
+        "end_date_time": "2021-12-03T19:15"
     },
     {
+        "id": 2,
+        "name": "Estudar IIO",
+        "category": "Studying",
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tas fixinho",
+        "start_date": 4,
+        "end_date": 4,
+        "start_time": [9, 15],
+        "end_time": [9, 45],
+        "start_date_time": "2021-12-04T09:15",
+        "end_date_time": "2021-12-04T09:45"
+    },
+    {
+        "id": 3,
+        "name": "Cuidar do Jose",
         "category": "Exercising",
-        "start_date_time": "2021-12-05T13:00",
-        "end_date_time": "2021-12-05T15:10"
-    },
-    {
-        "category": "Gaming",
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#42bcf5",
+        "description": "Que bebe chato, so me interessa o dinheiro",
+        "start_date": 5,
+        "end_date": 5,
+        "start_time": [17, 0],
+        "end_time": [19, 0],
         "start_date_time": "2021-12-05T17:00",
-        "end_date_time": "2021-12-06T00:00"
+        "end_date_time": "2021-12-05T19:00"
     },
     {
-        "category": "Studying",
-        "start_date_time": "2021-12-06T00:00",
-        "end_date_time": "2021-12-06T05:00"
-    },
-    {
+        "id": 4,
+        "name": "Dormir",
         "category": "Sleeping",
-        "start_date_time": "2021-12-06T05:00",
-        "end_date_time": "2021-12-06T12:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#cb42f5",
+        "description": "As vezes sonho com a Maria",
+        "start_date": 5,
+        "end_date": 7,
+        "start_time": [20, 0],
+        "end_time": [20, 0],
+        "start_date_time": "2021-12-05T20:00",
+        "end_date_time": "2021-12-07T20:00"
     },
     {
-        "category": "Exercising",
-        "start_date_time": "2021-12-06T15:00",
-        "end_date_time": "2021-12-06T18:00"
-    },
-    {
+        "id": 5,
+        "name": "Chegar a Gold no LOL",
         "category": "Gaming",
-        "start_date_time": "2021-12-06T20:00",
-        "end_date_time": "2021-12-07T00:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#54f542",
+        "description": "SO FEEDERS PA PORRA O MEU JUNGLER NEM GANKA FF15",
+        "start_date": 7,
+        "end_date": 7,
+        "start_time": [20, 5],
+        "end_time": [23, 55],
+        "start_date_time": "2021-12-07T20:05",
+        "end_date_time": "2021-12-07T23:55"
     },
     {
-        "category": "Studying",
-        "start_date_time": "2021-12-07T02:00",
-        "end_date_time": "2021-12-07T05:00"
-    },
-    {
-        "category": "Exercising",
-        "start_date_time": "2021-12-07T04:00",
-        "end_date_time": "2021-12-07T06:00"
-    },
-    {
+        "id": 6,
+        "name": "Jogar",
         "category": "Gaming",
-        "start_date_time": "2021-12-07T08:00",
-        "end_date_time": "2021-12-07T12:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tou tramado 2",
+        "start_date": 1,
+        "end_date": 1,
+        "start_time": [15, 0],
+        "end_time": [19, 0],
+        "start_date_time": "2021-12-02T19:15",
+        "end_date_time": "2021-12-03T19:15"
     },
     {
-        "category": "Studying",
-        "start_date_time": "2021-12-07T14:00",
-        "end_date_time": "2021-12-07T18:00"
-    },
-    {
-        "category": "Exercising",
-        "start_date_time": "2021-12-07T20:00",
-        "end_date_time": "2021-12-07T21:00"
-    },
-    {
+        "id": 8,
+        "name": "Dormir",
         "category": "Sleeping",
-        "start_date_time": "2021-12-07T23:00",
-        "end_date_time": "2021-12-08T05:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tou tramado 2",
+        "start_date": 1,
+        "end_date": 2,
+        "start_time": [22, 0],
+        "end_time": [10, 0],
+        "start_date_time": "2021-12-02T19:15",
+        "end_date_time": "2021-12-03T19:15"
     },
     {
-        "category": "Studying",
-        "start_date_time": "2021-12-08T08:00",
-        "end_date_time": "2021-12-08T12:00"
-    },
-    {
-        "category": "Exercising",
-        "start_date_time": "2021-12-08T15:00",
-        "end_date_time": "2021-12-08T16:00"
-    },
-    {
+        "id": 9,
+        "name": "Jogar",
         "category": "Gaming",
-        "start_date_time": "2021-12-09T00:00",
-        "end_date_time": "2021-12-09T08:00"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tou tramado 2",
+        "start_date": 2,
+        "end_date": 2,
+        "start_time": [10, 0],
+        "end_time": [15, 0],
+        "start_date_time": "2021-12-02T19:15",
+        "end_date_time": "2021-12-03T19:15"
     },
     {
-        "category": "Sleeping",
-        "start_date_time": "2021-12-09T10:00",
-        "end_date_time": "2021-12-09T10:30"
-    },
-    {
-        "category": "Exercising",
-        "start_date_time": "2021-12-09T12:00",
-        "end_date_time": "2021-12-09T15:00"
-    },
-    {
+        "id": 10,
+        "name": "Teste AM2",
         "category": "Studying",
-        "start_date_time": "2021-12-09T18:00",
-        "end_date_time": "2021-12-09T23:00"
-    },
-    {
-        "category": "Gaming",
-        "start_date_time": "2021-12-10T00:00",
-        "end_date_time": "2021-12-10T07:30"
-    },
-    {
-        "category": "Sleeping",
-        "start_date_time": "2021-12-10T12:00",
-        "end_date_time": "2021-12-10T19:00"
-    },
-    {
-        "category": "Exercising",
-        "start_date_time": "2021-12-10T23:00",
-        "end_date_time": "2021-12-11T08:00"
-    },
-    {
-        "category": "Gaming",
-        "start_date_time": "2021-12-11T10:00",
-        "end_date_time": "2021-12-11T19:00"
-    },
-    {
-        "category": "Studying",
-        "start_date_time": "2021-12-11T21:00",
-        "end_date_time": "2021-12-11T23:30"
+        "frequency": "None",
+        "notification": "Never",
+        "color": "#f54242",
+        "description": "Tou tramado 2",
+        "start_date": 2,
+        "end_date": 2,
+        "start_time": [16, 0],
+        "end_time": [18, 0],
+        "start_date_time": "2021-12-02T19:15",
+        "end_date_time": "2021-12-03T19:15"
     }
 ];
 
