@@ -20,12 +20,12 @@ function setDefaultStatistic()
     let to_date = document.getElementById("statistics-to-date");
 
     var today = new Date();
-    var today_date = today.getFullYear() + '-' + ((today.getMonth() + 1) < 10 ? '0' : '') + (today.getMonth() + 1) + '-' + (today.getDate() < 10 ? '0' : '') + today.getDate() + 'T' + (today.getHours() < 10 ? '0' : '') + today.getHours() + ':' + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+    var today_date = "2021-12-02T00:00";
 
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    var yesterday_date = yesterday.getFullYear() + '-' + ((yesterday.getMonth() + 1) < 10 ? '0' : '') + (yesterday.getMonth() + 1) + '-' + (yesterday.getDate() < 10 ? '0' : '') + yesterday.getDate() + 'T' + (yesterday.getHours() < 10 ? '0' : '') + yesterday.getHours() + ':' + (yesterday.getMinutes() < 10 ? '0' : '') + yesterday.getMinutes();
+    var yesterday_date = "2021-12-01T00:00"
 
     from_date.value = yesterday_date;
     to_date.value = today_date;
