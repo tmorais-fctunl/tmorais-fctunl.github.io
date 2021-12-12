@@ -619,8 +619,8 @@ function updateForm(id) {
   $("#updateform_Name").val(task.name);
   $("#updateform_Start_date").val("2021-12-0"+task.start_date);
   $("#updateform_End_date").val("2021-12-0"+task.end_date);
-  $("#updateform_Start_time").val(task.start_time[0]+":"+task.start_time[1]);
-  $("#updateform_End_time").val(task.end_time[0]+":"+task.end_time[1]);
+  $("#updateform_Start_time").val(task.start_date_time.split("T")[1]);
+  $("#updateform_End_time").val(task.end_date_time.split("T")[1]);
   $("#updateform_Frequency").val(frequencies.indexOf(task.frequency));
   $("#updateform_Category").val(categories.indexOf(task.category));
   $("#updateform_Notification").val(notifications.indexOf(task.notification));
