@@ -3,6 +3,7 @@ var task_counter = 0;
 let notifications = ["Never","5min","10min","30min","1h","1day"];
 let frequencies = ["None","Every day"];
 let categories = ["Studying","Gaming","Sleeping","Exercising"];
+let colors = ["#f54242","#54f542","#cb42f5","#42bcf5"];
 let hour_positions = [4.16,8.32,12.48,16.64,20.80,24.96,29.12,33.28,37.44,41.60,45.76,49.92,54.08,58.24,62.40,66.56,70.72,74.88,79.04,83.20,87.36,91.52,95.68]
 let tasks = [];
 let uniqueTasks = [];
@@ -159,9 +160,10 @@ function declareTaskTriggerHandlers(id,i) {
   });
 }
 
-function pushTask(id,start_day,i,pos,height,width,subtaskclass,color,name) {
+function pushTask(id,start_day,i,pos,height,width,subtaskclass,color,name,description) {
   console.log("Push Task day:"+start_day+" with height: "+height);
-  let task = '<div name="task_'+id+'" id="task_'+id+'_'+i+'" style="position:absolute; top:'+pos+'%; left:'+width+'%; height:'+height+'%; border-left-color:'+color+'" class="task '+subtaskclass+'">'+name+'</div>';
+  //let task = '<div name="task_'+id+'" id="task_'+id+'_'+i+'" style="position:absolute; top:'+pos+'%; left:'+width+'%; height:'+height+'%; border-left-color:'+color+'; color:black" class="task '+subtaskclass+'">'+name+'<p style="margin-top:10px; color:darkgray">'+description+'</p></div>';
+  let task = '<div name="task_'+id+'" id="task_'+id+'_'+i+'" style="position:absolute; top:'+pos+'%; left:'+width+'%; height:'+height+'%; border-left-color:'+color+'; color:black" class="task '+subtaskclass+'">'+name+'</div>';
   $("#day-"+(start_day)).append(task);
   tasks.push({id:id, day:start_day, pos:pos, duration:height, width:$('#task_'+id+'_'+i).width()});
   declareTaskTriggerHandlers(id,i);
@@ -173,10 +175,12 @@ function addActivity() {
   let end_day = new Date($("#form_End_date").val()).getDate();
   let start_time = $("#form_Start_time").val().split(':');
   let end_time = $("#form_End_time").val().split(':');
-  let freq = $("#form_Frequency").val();
-  let notif = $("#form_Notification").val();
-  let color = $("#form_Color").val();
+  let freq = frequencies[$("#form_Frequency").val()];
+  let notif = notifications[$("#form_Notification").val()];
+  //let color = $("#form_Color").val();
   let category = $("#form_Category").val();
+  let color = colors[category];
+  category = categories[category];
   let description =$("#form_Description").val();
 
   start_hour = parseInt(start_time[0]);
@@ -209,7 +213,7 @@ function addActivity() {
     width = taskLeftPos(start_day, top_pos, fst_height);
     if (fst_height==0)
       fst_height = 1;
-    pushTask(id,start_day,0,top_pos,fst_height,width,"",color,name);
+    pushTask(id,start_day,0,top_pos,fst_height,width,"",color,name,description);
   }
   //if it spreads over multiple days
   else {
@@ -218,15 +222,15 @@ function addActivity() {
       let width = 0;
       if (i==0) {
         width = taskLeftPos(start_day+i, top_pos, fst_height);
-        pushTask(id,start_day+i,i,top_pos,fst_height-2,width,"task-fst",color,name);
+        pushTask(id,start_day+i,i,top_pos,fst_height-2,width,"task-fst",color,name, description);
       }
       else if (i!=day_dur) {
         width = taskLeftPos(start_day+i, 0, 98.0);
-        pushTask(id,start_day+i,i,0,98.0,width,"task-mid",color,name);
+        pushTask(id,start_day+i,i,0,98.0,width,"task-mid",color,name, description);
       }
       else {
         width = taskLeftPos(start_day+i, 0, lst_height);
-        pushTask(id,start_day+i,i,0,lst_height,width,"task-end",color,name);
+        pushTask(id,start_day+i,i,0,lst_height,width,"task-end",color,name, description);
       }
     }
   }
@@ -267,10 +271,10 @@ function generateTasks() {
     {
       id:task_counter++,
       name:"Estudar AM1",
-      category:categories[1],
+      category:categories[0],
       frequency:frequencies[0],
       notification:notifications[0],
-      color:"#FF0000",
+      color:colors[0],
       description:"Tou tramado",
       start_date:1,
       end_date:2,
@@ -282,10 +286,10 @@ function generateTasks() {
     {
       id:task_counter++,
       name:"Estudar AM2",
-      category:categories[1],
+      category:categories[0],
       frequency:frequencies[0],
       notification:notifications[0],
-      color:"#FF0000",
+      color:colors[0],
       description:"Tou tramado 2",
       start_date:2,
       end_date:3,
@@ -297,10 +301,10 @@ function generateTasks() {
     {
       id:task_counter++,
       name:"Estudar IIO",
-      category:categories[1],
+      category:categories[0],
       frequency:frequencies[0],
       notification:notifications[0],
-      color:"#FF0000",
+      color:colors[0],
       description:"Tas fixinho",
       start_date:4,
       end_date:4,
@@ -315,7 +319,7 @@ function generateTasks() {
       category:categories[3],
       frequency:frequencies[0],
       notification:notifications[0],
-      color:"#00FF00",
+      color:colors[3],
       description:"Que bebe chato, so me interessa o dinheiro",
       start_date:5,
       end_date:5,
@@ -330,7 +334,7 @@ function generateTasks() {
       category:categories[2],
       frequency:frequencies[0],
       notification:notifications[0],
-      color:"#0000FF",
+      color:colors[2],
       description:"As vezes sonho com a Maria",
       start_date:5,
       end_date:7,
@@ -345,7 +349,7 @@ function generateTasks() {
       category:categories[1],
       frequency:frequencies[0],
       notification:notifications[0],
-      color:"#FFFF00",
+      color:colors[1],
       description:"SO FEEDERS PA PORRA O MEU JUNGLER NEM GANKA FF15",
       start_date:7,
       end_date:7,
@@ -414,7 +418,7 @@ function loadTask(i) {
     width = taskLeftPos(task_object.start_date, top_pos, fst_height);
     if (fst_height==0)
       fst_height = 1;
-    pushTask(id,task_object.start_date,0,top_pos,fst_height,width,"",task_object.color,task_object.name);
+    pushTask(id,task_object.start_date,0,top_pos,fst_height,width,"",task_object.color,task_object.name, task_object.description);
   }
   //if it spreads over multiple days
   else {
@@ -423,15 +427,15 @@ function loadTask(i) {
       let width = 0;
       if (i==0) {
         width = taskLeftPos(task_object.start_date+i, top_pos, fst_height);
-        pushTask(id,task_object.start_date+i,i,top_pos,fst_height-2,width,"task-fst",task_object.color,task_object.name);
+        pushTask(id,task_object.start_date+i,i,top_pos,fst_height-2,width,"task-fst",task_object.color,task_object.name, task_object.description);
       }
       else if (i!=day_dur) {
         width = taskLeftPos(task_object.start_date+i, 0, 98.0);
-        pushTask(id,task_object.start_date+i,i,0,98.0,width,"task-mid",task_object.color,task_object.name);
+        pushTask(id,task_object.start_date+i,i,0,98.0,width,"task-mid",task_object.color,task_object.name, task_object.description);
       }
       else {
         width = taskLeftPos(task_object.start_date+i, 0, lst_height);
-        pushTask(id,task_object.start_date+i,i,0,lst_height,width,"task-end",task_object.color,task_object.name);
+        pushTask(id,task_object.start_date+i,i,0,lst_height,width,"task-end",task_object.color,task_object.name, task_object.description);
       }
     }
   }
@@ -486,7 +490,8 @@ function updateTask(index) {
   let freq = $("#updateform_Frequency").val();
   let category = $("#updateform_Category").val();
   let notif = $("#updateform_Notification").val();
-  let color = $("#updateform_Color").val();
+  //let color = $("#updateform_Color").val();
+  let color = colors[category];
   let description = $("#updateform_Description").val();
 
   start_hour = parseInt(start_time[0]);
@@ -519,7 +524,7 @@ function updateTask(index) {
     width = taskLeftPos(start_date, top_pos, fst_height);
     if (fst_height==0)
       fst_height = 1;
-    pushTask(id,start_date,0,top_pos,fst_height,width,"",color,name);
+    pushTask(id,start_date,0,top_pos,fst_height,width,"",color,name, description);
   }
   //if it spreads over multiple days
   else {
@@ -528,15 +533,15 @@ function updateTask(index) {
       let width = 0;
       if (i==0) {
         width = taskLeftPos(start_date+i, top_pos, fst_height);
-        pushTask(id,start_date+i,i,top_pos,fst_height-2,width,"task-fst",color,name);
+        pushTask(id,start_date+i,i,top_pos,fst_height-2,width,"task-fst",color,name,description);
       }
       else if (i!=day_dur) {
         width = taskLeftPos(start_date+i, 0, 98.0);
-        pushTask(id,start_date+i,i,0,98.0,width,"task-mid",color,name);
+        pushTask(id,start_date+i,i,0,98.0,width,"task-mid",color,name,description);
       }
       else {
         width = taskLeftPos(start_date+i, 0, lst_height);
-        pushTask(id,start_date+i,i,0,lst_height,width,"task-end",color,name);
+        pushTask(id,start_date+i,i,0,lst_height,width,"task-end",color,name,description);
       }
     }
   }
@@ -577,7 +582,7 @@ function updateForm(id) {
   $("#updateform_Frequency").val(frequencies.indexOf(task.frequency));
   $("#updateform_Category").val(categories.indexOf(task.category));
   $("#updateform_Notification").val(notifications.indexOf(task.notification));
-  $("#updateform_Color").val(task.color);
+  //$("#updateform_Color").val(task.color);
   $("#updateform_Description").val(task.description);
   $("#ActivityUpdateFormContainer form").attr("onsubmit","updateTask("+task_index+"); return false");
   $("#updateform_delete_btn").attr("onclick","deleteTask("+task_index+"); return false;")
@@ -599,7 +604,8 @@ function clearUpdateForm() {
   $("#updateform_Frequency").val("");
   $("#updateform_Category").val("");
   $("#updateform_Notification").val("");
-  $("#updateform_Color").val("#000000");
+  //$("#updateform_Color").val("#000000");
+  $("#updateform_Description").val("");
 }
 
 function openForm() {
@@ -621,5 +627,6 @@ function clearForm() {
   $("#form_Frequency").val("");
   $("#form_Category").val("");
   $("#form_Notification").val("");
-  $("#form_Color").val("#000000");
+  //$("#form_Color").val("#000000");
+  $("#form_Description").val("");
 }
