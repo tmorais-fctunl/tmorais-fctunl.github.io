@@ -12,7 +12,7 @@ const default_events =
         "end_date": 1,
         "start_time": [10, 15],
         "end_time": [14, 15],
-        "start_date_time": "2021-12-01T10:105",
+        "start_date_time": "2021-12-01T10:15",
         "end_date_time": "2021-12-01T14:15"
     },
     {
@@ -258,10 +258,10 @@ const default_events =
     {
         "id": 22,
         "name": "Reach Grand Champ in RL",
-        "category": "Exercising",
+        "category": "Gaming",
         "frequency": "None",
         "notification": "Never",
-        "color": "#3cba9f",
+        "color": "rgb(54, 162, 235)",
         "description": "I can do it! Im already Champ 3!",
         "start_date": 6,
         "end_date": 6,
