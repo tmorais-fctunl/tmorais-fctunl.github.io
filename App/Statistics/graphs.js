@@ -1,60 +1,195 @@
-function setDatasets(){
+let barChart = null
+    let barChartLarge = null;
+let bar_ctx = null;
+let bar_large_ctx = null;
 
-}
+let areaChart = null
+    let areaChartLarge = null;
+let area_ctx = null;
+let area_large_ctx = null;
 
-function reloadLargeGraphs(){
-    const bar_large_ctx = document.getElementById('barChartFull').getContext('2d');
-    const barChartLarge = new Chart(bar_large_ctx, bar_large_config);
+let pieChart = null
+    let pieChartLarge = null;
+let pie_ctx = null;
+let pie_large_ctx = null;
 
-    const area_large_ctx = document.getElementById('areaChartFull').getContext('2d');
-    const areaChartLarge = new Chart(area_large_ctx, area_large_config);
-
-    const pie_large_ctx = document.getElementById('pieChartFull').getContext('2d');
-    const pieChartLarge = new Chart(pie_large_ctx, pie_large_config);
-}
-
-function reloadGraphs(from_date, to_date)
+function destroyLargeGraphs()
 {
-    const area_ctx = document.getElementById('areaChart').getContext('2d');
-    const area_ctx_full = document.getElementById('areaChartFull').getContext('2d');
-    const area_data =
+    if (barChartLarge != null)
+        barChartLarge.destroy();
+
+    if (areaChartLarge != null)
+        areaChartLarge.destroy();
+
+    if (pieChartLarge != null)
+        pieChartLarge.destroy();
+}
+
+function destroySmallGraphs()
+{
+    if (barChart != null)
+        barChart.destroy();
+
+    if (areaChart != null)
+        areaChart.destroy();
+
+    if (pieChart != null)
+        pieChart.destroy();
+}
+
+function reloadLargeGraphs()
+{
+    destroyLargeGraphs();
+    barChartLarge = new Chart(bar_large_ctx, bar_large_config);
+    areaChartLarge = new Chart(area_large_ctx, area_large_config);
+    pieChartLarge = new Chart(pie_large_ctx, pie_large_config);
+}
+
+function decimalHoursToString(hours_dec)
+{
+    let a = Math.floor(hours_dec);
+    let b = hours_dec - a;
+    let c = Math.floor(b * 60);
+
+    let hours = a.toFixed(0);
+    let minutes = c.toFixed(0);
+
+    return (hours > 0 ? hours + "h" : "") + (minutes > 0 ? minutes + "min" : ""); 
+}
+
+function areaDataset(events, start_date, end_date)
+{
+    let labels = [];
+    let data = [[], [], [], []];
+
+    for (let i = 0; i < events.length; i++)
     {
-        labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+        let event_start = new Date(events[i].start_date_time);
+        let event_end = new Date(events[i].end_date_time);
+
+        if (!eventIntersects(event_start, event_end, start_date, end_date))
+            continue;
+
+        labels.push("");
+
+        let int_start = maxDate(event_start, start_date);
+        let int_end = minDate(event_end, end_date);
+
+        let date = new Date(int_end - int_start);
+
+        let time = date.getDate() * 24 + date.getHours() + date.getMinutes() / 60.0;
+        switch (events[i].category)
+        {
+        case "Studying":
+            data[0].push(time);
+            break;
+        case "Gaming":
+            data[1].push(time);
+            break;
+        case "Sleeping":
+            data[2].push(time);
+            break;
+        case "Exercising":
+            data[3].push(time);
+            break;
+        default:
+            console.log("Invalid Category: pieBarDataset()");
+        }
+    }
+
+    area_data =
+    {
+        labels: labels,
         datasets: [
             {
-                data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
+                data: data[0],
                 label: "Studying",
                 borderColor: "rgb(255, 99, 132)",
                 fill: false
             },
             {
-                data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
+                data: data[1],
                 label: "Gaming",
                 borderColor: "rgb(54, 162, 235)",
                 fill: false
             },
             {
-                data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
+                data: data[2],
                 label: "Sleeping",
                 borderColor: "rgb(255, 205, 86)",
                 fill: false
             },
             {
-                data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
+                data: data[3],
                 label: "Exercising",
                 borderColor: "#3cba9f",
                 fill: false
             }
         ]
     };
-    area_config.data = area_data;
-    area_large_config.data = area_data;
-    const areaChart = new Chart(area_ctx, area_config);
-    const areaChartFull = new Chart(area_ctx_full, area_large_config);
+}
 
-    const bar_ctx = document.getElementById('barChart').getContext('2d');
-    const bar_ctx_full = document.getElementById('barChartFull').getContext('2d');
-    const bar_data =
+function maxDate(a, b)
+{
+    return a > b ? a : b;
+}
+
+function minDate(a, b)
+{
+    return a < b ? a : b;
+}
+
+function eventIntersects(event_start, event_end, start_date, end_date)
+{
+    return !(start_date > event_end || event_start > end_date);
+}
+
+function pieBarDataset(events, start_date, end_date)
+{
+    let data = [0, 0, 0, 0];
+
+    for (let i = 0; i < events.length; i++)
+    {
+        let event_start = new Date(events[i].start_date_time);
+        let event_end = new Date(events[i].end_date_time);
+
+        if (!eventIntersects(event_start, event_end, start_date, end_date))
+            continue;
+
+        let int_start = maxDate(event_start, start_date);
+        let int_end = minDate(event_end, end_date);
+
+        let date = new Date(int_end - int_start);
+
+        let time = date.getDate() * 24 + date.getHours() + date.getMinutes() / 60.0;
+        switch (events[i].category)
+        {
+        case "Studying":
+            data[0] += time;
+            break;
+        case "Gaming":
+            data[1] += time;
+            break;
+        case "Sleeping":
+            data[2] += time;
+            break;
+        case "Exercising":
+            data[3] += time;
+            break;
+        default:
+            console.log("Invalid Category: pieBarDataset()");
+        }
+    }
+    // console.log(data)
+
+    // data[0] = decimalHoursToString(data[0]);
+    // data[1] = decimalHoursToString(data[1]);
+    // data[2] = decimalHoursToString(data[2]);
+    // data[3] = decimalHoursToString(data[3]);
+
+    // console.log(data)
+
+    pie_bar_data =
     {
         labels: [
             'Studying',
@@ -64,7 +199,7 @@ function reloadGraphs(from_date, to_date)
         ],
         datasets: [
             {
-                data: [300, 50, 100, 20],
+                data: data,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
                     'rgb(54, 162, 235)',
@@ -75,16 +210,50 @@ function reloadGraphs(from_date, to_date)
             }
         ]
     };
-    bar_config.data = bar_data;
-    bar_large_config.data = bar_data;
-    const barChart = new Chart(bar_ctx, bar_config);
-    const barChartFull = new Chart(bar_ctx_full, bar_large_config);
+}
 
-    const pie_ctx = document.getElementById('pieChart').getContext('2d');
-    const pie_ctx_full = document.getElementById('pieChartFull').getContext('2d');
-    pie_data = bar_data;
+function setDatasets(from_date, to_date)
+{
+    let get_events = sessionStorage.getItem('events');
+    let events = []
+    if (get_events != null)
+        events = JSON.parse(get_events);
+
+    let start_date = new Date(from_date);
+    let end_date = new Date(to_date);
+
+    areaDataset(events, start_date, end_date);
+    pieBarDataset(events, start_date, end_date);
+}
+
+function reloadGraphs(from_date, to_date)
+{
+    destroyLargeGraphs();
+    destroySmallGraphs();
+
+    setDatasets(from_date, to_date);
+
+    area_ctx = document.getElementById('areaChart').getContext('2d');
+    area_large_ctx = document.getElementById('areaChartLarge').getContext('2d');
+
+    area_config.data = area_data;
+    area_large_config.data = area_data;
+    areaChart = new Chart(area_ctx, area_config);
+    areaChartLarge = new Chart(area_large_ctx, area_large_config);
+
+    bar_ctx = document.getElementById('barChart').getContext('2d');
+    bar_large_ctx = document.getElementById('barChartLarge').getContext('2d');
+
+    bar_config.data = pie_bar_data;
+    bar_large_config.data = pie_bar_data;
+    barChart = new Chart(bar_ctx, bar_config);
+    barChartLarge = new Chart(bar_large_ctx, bar_large_config);
+
+    pie_ctx = document.getElementById('pieChart').getContext('2d');
+    pie_large_ctx = document.getElementById('pieChartLarge').getContext('2d');
+    pie_data = pie_bar_data;
     pie_config.data = pie_data;
     pie_large_config.data = pie_data;
-    const pieChart = new Chart(pie_ctx, pie_config);
-    const pieChartFull = new Chart(pie_ctx_full, pie_large_config);
+    pieChart = new Chart(pie_ctx, pie_config);
+    pieChartLarge = new Chart(pie_large_ctx, pie_large_config);
 }

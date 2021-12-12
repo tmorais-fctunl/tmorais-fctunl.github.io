@@ -1,4 +1,4 @@
-let events = [];
+
 let statistics = [];
 let current_statistic = null;
 let temp_statistic = null;
@@ -54,10 +54,6 @@ function start_statistics()
 {
     let from_date = document.getElementById("statistics-from-date");
     let to_date = document.getElementById("statistics-to-date");
-
-    let get_events = sessionStorage.getItem('events');
-    if (get_events != null)
-        events = JSON.parse(get_events);
 
     get_statistics = sessionStorage.getItem('statistics');
     if (get_statistics == null)
@@ -226,6 +222,9 @@ function clearNotes()
     document.getElementById("bar-new-note").value = "";
     document.getElementById("area-new-note").value = "";
 
+    if(current_statistic == null)
+        return;
+
     for (let i = 0; i < statistics[current_statistic].notes.pie.length; i++)
         deleteFromList("pie-notes-list-" + statistics[current_statistic].notes.pie[i].id);
 
@@ -285,7 +284,7 @@ function loadStatistic(id)
         }
     }
 
-    reloadGraphs(from_date, to_date);
+    reloadGraphs(from_date.value, to_date.value);
     setStatisticNotes();
     updateCurrentStatistic_SS();
 }
@@ -339,12 +338,9 @@ function saveStatistic()
 
     let from_date = document.getElementById("statistics-from-date").value;
     let to_date = document.getElementById("statistics-to-date").value;
-
-    if (from_date == "" || to_date == "")
-    {
-        document.getElementById("statistics-something-went-wrong-div").style.display = "block";
+    
+    if(!checkValidDates())
         return;
-    }
 
     for (var i = 0; i < statistics.length; i++)
     {
@@ -422,6 +418,22 @@ function addStatisticToDivList(from_date, to_date, id)
     list.appendChild(node);
 }
 
+function checkValidDates()
+{
+    let from_date = document.getElementById("statistics-from-date").value;
+    let to_date = document.getElementById("statistics-to-date").value;
+
+    let start_date = new Date(from_date);
+    let end_date = new Date(to_date);
+
+    if (from_date == "" || to_date == "" || start_date >= end_date)
+    {
+        document.getElementById("statistics-something-went-wrong-div").style.display = "block";
+        return false;
+    }
+    return true;
+}
+
 function apply()
 {
     document.getElementById("statistics-something-went-wrong-div").style.display = "none";
@@ -430,11 +442,8 @@ function apply()
     let from_date = document.getElementById("statistics-from-date").value;
     let to_date = document.getElementById("statistics-to-date").value;
 
-    if (from_date == "" || to_date == "")
-    {
-        document.getElementById("statistics-something-went-wrong-div").style.display = "block";
+    if(!checkValidDates())
         return;
-    }
 
     reloadGraphs(from_date, to_date);
 
@@ -449,8 +458,8 @@ function apply()
                 area: []
             }
         };
-        current_statistic = null;
         clearNotes();
+        current_statistic = null;
     }
 
     updateCurrentStatistic_SS();
@@ -458,9 +467,9 @@ function apply()
 
 let changedStatistic = function ()
 {
-    console.log("Dates or times changed");
     changed_dates = true;
-    clearNotes();
+    if(checkValidDates() && current_statistic != null)
+        clearNotes();
 };
 
 $(document).ready(function ()
