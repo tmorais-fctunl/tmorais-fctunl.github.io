@@ -145,6 +145,10 @@ function resetPomodoro() {
   clearInterval(timerInterval);
   loadCronometer();
   work = true;
+  document.getElementById("startButton").style.display = "block";
+  document.getElementById("stopButton").style.display = "none";
+  document.getElementById("continueButton").style.display = "none";
+  document.getElementById("abandonButton").style.display = "none";
 }
 
 function startTimer2() {
@@ -162,17 +166,12 @@ function startTimer2() {
       if(work){
         repeatLeft-=1;
         if(repeatLeft > 0) {
-          if(confirm("Work is done, time to for your pause.")) {
-            work = !work;
-            timePassed = -1;
-            TIME_LIMIT = breakTime;
-            document.getElementById("base-timer-path-remaining").classList.remove(choosenWorkColor);
-            document.getElementById("base-timer-path-remaining").classList.add(COLOR_CODES.pause);
-          }
-          else {
-            uncompletedPomodoro();
-            
-          } 
+          alert("Work is done, time for your pause.")
+          work = !work;
+          timePassed = -1;
+          TIME_LIMIT = breakTime;
+          document.getElementById("base-timer-path-remaining").classList.remove(choosenWorkColor);
+          document.getElementById("base-timer-path-remaining").classList.add(COLOR_CODES.pause); 
         }
         else {
           alert("Congratulations, you succeded!");
@@ -208,35 +207,70 @@ function startTimer2() {
 
           let endString = `${endDate.getFullYear()}-${endMonth}-${endDay}T${endHour}:${endMinute}`;
           console.log(endString);
+          let task_color = null;
+          switch(timers[selectedTimerIndex].category) {
+            case "Studying": 
+              task_color = 'rgb(255, 99, 132)';
+              break;
+            case "Gaming": 
+              task_color = 'rgb(54, 162, 235)';
+              break;
+            case "Sleeping":
+              task_color = 'rgb(255, 205, 86)';
+              break;
+            case "Exercising": 
+              task_color = '#3cba9f';
+              break;
+          }
+          let task_counter = null;
+          let getTaskCounter = sessionStorage.getItem('task_counter');
+          if(getTaskCounter == null) {
+            task_counter = 0;
+            sessionStorage.setItem('task_counter', task_counter);
+          }
+          else {
+            task_counter = JSON.parse(getTaskCounter);
+          }
+          let task_object = {
+            id:task_counter,
+            name:timers[selectedTimerIndex].name,
+            category:timers[selectedTimerIndex].category,
+            frequency:"None",
+            notification:"Never",
+            color:task_color,
+            description:timers[selectedTimerIndex].description,
+            start_date:startDate.getDate(),
+            end_date:endDate.getDate(),
+            start_time:`${startHour}:${startMinute}`,
+            end_time:`${endHour}:${endMinute}`,
+            start_date_time:startString,
+            end_date_time:endString
+          };
 
-          let duration = Math.round((endDate - startDate)/1000);
-          let completedPomodoro = {category : timers[selectedTimerIndex].category, start_date_time: startString, end_date_time: endString };
-          console.log(completedPomodoro);
+          console.log(task_object);
           let getEvents = sessionStorage.getItem('events');
           if(getEvents == null) {
-            let newEvents = [completedPomodoro];
+            let newEvents = [task_object];
             sessionStorage.setItem('events', JSON.stringify(newEvents));
           }
           else {
             let events = JSON.parse(getEvents);
-            events.push(completedPomodoro);
+            events.push(task_object);
             sessionStorage.setItem('events', JSON.stringify(events));
           }
+          task_counter++;
+          sessionStorage.setItem('task_counter', task_counter);
           
           resetPomodoro();
         }
       }
       else {
-        if(confirm("Break is over, time to get back to work!")) {
-          TIME_LIMIT = workTime;
-          work = !work;
-          timePassed = -1;
-          document.getElementById("base-timer-path-remaining").classList.remove(COLOR_CODES.pause);
-          document.getElementById("base-timer-path-remaining").classList.add(choosenWorkColor);
-        }
-        else {
-          uncompletedPomodoro();
-        }
+        alert("Break is over, time to get back to work!") 
+        TIME_LIMIT = workTime;
+        work = !work;
+        timePassed = -1;
+        document.getElementById("base-timer-path-remaining").classList.remove(COLOR_CODES.pause);
+        document.getElementById("base-timer-path-remaining").classList.add(choosenWorkColor);
       }
     }
   }, 1000);
@@ -247,16 +281,20 @@ function startTimer() {
     return;
   }
   if(pomodoro_live){
-    alert("Can´t perform this action with a pomodoro running!");
+    alert("Can´t perform this action with a pomodoro in progress!");
     return;
   }
+  document.getElementById("startButton").style.display = "none";
+  document.getElementById("stopButton").style.display = "block";
+  document.getElementById("continueButton").style.display = "block";
+  document.getElementById("abandonButton").style.display = "block";
   startDate = new Date();
   startTimer2();
 }
 
 function loadTimer(i) {
   if(pomodoro_live){
-    alert("Can´t perform this action with a pomodoro running!");
+    alert("Can´t perform this action with a pomodoro in progress!");
     return;
   }
   selectedTimerIndex = i;
@@ -289,7 +327,7 @@ function loadTimer(i) {
 
 function deleteTimer(i) {
   if(pomodoro_live){
-    alert("Can´t perform this action with a pomodoro running!");
+    alert("Can´t perform this action with a pomodoro in progress!");
     return;
   }
   timers.splice(i,1);
@@ -309,7 +347,7 @@ function deleteTimer(i) {
 
 function saveTimer() {
   if(pomodoro_live){
-    alert("Can´t perform this action with a pomodoro running!");
+    alert("Can´t perform this action with a pomodoro in progress!");
     return;
   }
   document.getElementById("base-timer-path-remaining").classList.remove(choosenWorkColor);
@@ -352,7 +390,7 @@ function saveTimer() {
 
 function createTimer() {
   if(pomodoro_live){
-    alert("Can´t perform this action with a pomodoro running!");
+    alert("Can´t perform this action with a pomodoro in progress!");
     return;
   }
   selectedTimerIndex =  -1;
