@@ -222,17 +222,20 @@ function clearNotes()
     document.getElementById("bar-new-note").value = "";
     document.getElementById("area-new-note").value = "";
 
-    if(current_statistic == null)
-        return;
+    var list = document.getElementById("pie-notes-list");
+    var elems = list.getElementsByTagName("li");
+    for (let i = 0; i < elems.length; i++)
+        deleteFromList(elems[i].id);
 
-    for (let i = 0; i < statistics[current_statistic].notes.pie.length; i++)
-        deleteFromList("pie-notes-list-" + statistics[current_statistic].notes.pie[i].id);
+    list = document.getElementById("bar-notes-list");
+    elems = list.getElementsByTagName("li");
+    for (let i = 0; i < elems.length; i++)
+        deleteFromList(elems[i].id);
 
-    for (let i = 0; i < statistics[current_statistic].notes.bar.length; i++)
-        deleteFromList("bar-notes-list-" + statistics[current_statistic].notes.bar[i].id);
-
-    for (let i = 0; i < statistics[current_statistic].notes.area.length; i++)
-        deleteFromList("area-notes-list-" + statistics[current_statistic].notes.area[i].id);
+    list = document.getElementById("area-notes-list");
+    elems = list.getElementsByTagName("li");
+    for (let i = 0; i < elems.length; i++)
+        deleteFromList(elems[i].id);
 }
 
 function setStatisticNotes()
@@ -261,6 +264,8 @@ function loadStatistic(id)
     document.getElementById("saved-statistics-side-menu").style.display = "none";
     document.getElementById("statistics-something-went-wrong-div").style.display = "none";
     document.getElementById("already-exists-statistic-message-div").style.display = "none";
+    document.getElementById("statistics-wrong-start-end-div").style.display = "none";
+
     clearNotes();
 
     temp_statistic = null;
@@ -335,11 +340,12 @@ function saveStatistic()
 {
     document.getElementById("statistics-something-went-wrong-div").style.display = "none";
     document.getElementById("already-exists-statistic-message-div").style.display = "none";
+    document.getElementById("statistics-wrong-start-end-div").style.display = "none";
 
     let from_date = document.getElementById("statistics-from-date").value;
     let to_date = document.getElementById("statistics-to-date").value;
-    
-    if(!checkValidDates())
+
+    if (!checkValidDates())
         return;
 
     for (var i = 0; i < statistics.length; i++)
@@ -359,9 +365,6 @@ function saveStatistic()
     }
 
     addStatisticToDivList(from_date, to_date, id);
-
-    temp_statistic = null;
-    changed_dates = false;
 
     let notes =
     {
@@ -385,6 +388,9 @@ function saveStatistic()
     current_statistic = statistics.length - 1;
     updateStatistics_SS();
     updateCurrentStatistic_SS();
+
+    temp_statistic = null;
+    changed_dates = false;
 }
 
 function addStatisticToDivList(from_date, to_date, id)
@@ -426,9 +432,14 @@ function checkValidDates()
     let start_date = new Date(from_date);
     let end_date = new Date(to_date);
 
-    if (from_date == "" || to_date == "" || start_date >= end_date)
+    if (from_date == "" || to_date == "")
     {
         document.getElementById("statistics-something-went-wrong-div").style.display = "block";
+        return false;
+    }
+    if (start_date >= end_date)
+    {
+        document.getElementById("statistics-wrong-start-end-div").style.display = "block";
         return false;
     }
     return true;
@@ -438,11 +449,12 @@ function apply()
 {
     document.getElementById("statistics-something-went-wrong-div").style.display = "none";
     document.getElementById("already-exists-statistic-message-div").style.display = "none";
+    document.getElementById("statistics-wrong-start-end-div").style.display = "none";
 
     let from_date = document.getElementById("statistics-from-date").value;
     let to_date = document.getElementById("statistics-to-date").value;
 
-    if(!checkValidDates())
+    if (!checkValidDates())
         return;
 
     reloadGraphs(from_date, to_date);
@@ -468,7 +480,7 @@ function apply()
 let changedStatistic = function ()
 {
     changed_dates = true;
-    if(checkValidDates() && current_statistic != null)
+    if (checkValidDates() && current_statistic != null)
         clearNotes();
 };
 

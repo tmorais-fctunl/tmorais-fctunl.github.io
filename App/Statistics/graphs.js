@@ -1,10 +1,10 @@
-let barChart = null
-    let barChartLarge = null;
+let barChart = null;
+let barChartLarge = null;
 let bar_ctx = null;
 let bar_large_ctx = null;
 
-let areaChart = null
-    let areaChartLarge = null;
+let areaChart = null;
+let areaChartLarge = null;
 let area_ctx = null;
 let area_large_ctx = null;
 
@@ -54,46 +54,91 @@ function decimalHoursToString(hours_dec)
     let hours = a.toFixed(0);
     let minutes = c.toFixed(0);
 
-    return (hours > 0 ? hours + "h" : "") + (minutes > 0 ? minutes + "min" : ""); 
+    return (hours > 0 ? hours + "h" : "") + (minutes > 0 ? minutes + "min" : "");
+}
+
+function splitDateIntoEqualIntervals(start_date, end_date, numberOfIntervals)
+{
+
+    let diff = end_date.getTime() - start_date.getTime();
+    let intervalLength = diff / numberOfIntervals;
+    let intervals = [start_date];
+    for (let i = 1; i <= numberOfIntervals; i++)
+        intervals.push(new Date(start_date.getTime() + i * intervalLength));
+
+    return intervals;
 }
 
 function areaDataset(events, start_date, end_date)
 {
+
+    let num__of_intervals = 10;
+
     let labels = [];
     let data = [[], [], [], []];
+    let intervals = splitDateIntoEqualIntervals(start_date, end_date, num__of_intervals);
 
-    for (let i = 0; i < events.length; i++)
+    for (let i = 0; i < num__of_intervals + 1; i++)
     {
-        let event_start = new Date(events[i].start_date_time);
-        let event_end = new Date(events[i].end_date_time);
+        labels.push(intervals[i].toDateString());
+        data[0].push(0);
+        data[1].push(0);
+        data[2].push(0);
+        data[3].push(0);
+    }
 
-        if (!eventIntersects(event_start, event_end, start_date, end_date))
-            continue;
+    for (let j = 0; j < intervals.length - 1; j++)
+    {
+        let interval_start = intervals[j];
+        let interval_end = intervals[j + 1];
 
-        labels.push("");
-
-        let int_start = maxDate(event_start, start_date);
-        let int_end = minDate(event_end, end_date);
-
-        let date = new Date(int_end - int_start);
-
-        let time = date.getDate() * 24 + date.getHours() + date.getMinutes() / 60.0;
-        switch (events[i].category)
+        for (let i = 0; i < events.length; i++)
         {
-        case "Studying":
-            data[0].push(time);
-            break;
-        case "Gaming":
-            data[1].push(time);
-            break;
-        case "Sleeping":
-            data[2].push(time);
-            break;
-        case "Exercising":
-            data[3].push(time);
-            break;
-        default:
-            console.log("Invalid Category: pieBarDataset()");
+            let event_start = new Date(events[i].start_date_time);
+            let event_end = new Date(events[i].end_date_time);
+
+            if (!eventIntersects(event_start, event_end, interval_start, interval_end))
+                continue;
+
+            let int_start = maxDate(event_start, interval_start);
+            let int_end = minDate(event_end, interval_end);
+
+            let date = new Date(int_end - int_start);
+
+            let time = (date.getDate() - 1) * 24 + date.getHours() + date.getMinutes() / 60.0;
+            switch (events[i].category)
+            {
+            case "Studying":
+                console.log("Studying");
+                console.log(date);
+                console.log(time);
+                console.log(j + 1);
+                data[0][j + 1] += time;
+                break;
+            case "Gaming":
+                console.log("Gaming");
+                console.log(date);
+                console.log(time);
+                console.log(j + 1);
+                data[1][j + 1] += time;
+                break;
+            case "Sleeping":
+                console.log("Sleeping");
+                console.log(date);
+                console.log(time);
+                console.log(j + 1);
+                data[2][j + 1] += time;
+                break;
+            case "Exercising":
+                console.log("Exercising");
+                console.log(date);
+                console.log(time);
+                console.log(j + 1);
+                data[3][j + 1] += time;
+                break;
+            default:
+                console.log("Invalid Category: areaDataset()");
+            }
         }
     }
 
@@ -161,7 +206,7 @@ function pieBarDataset(events, start_date, end_date)
 
         let date = new Date(int_end - int_start);
 
-        let time = date.getDate() * 24 + date.getHours() + date.getMinutes() / 60.0;
+        let time = (date.getDate() - 1) * 24 + date.getHours() + date.getMinutes() / 60.0;
         switch (events[i].category)
         {
         case "Studying":
@@ -180,14 +225,6 @@ function pieBarDataset(events, start_date, end_date)
             console.log("Invalid Category: pieBarDataset()");
         }
     }
-    // console.log(data)
-
-    // data[0] = decimalHoursToString(data[0]);
-    // data[1] = decimalHoursToString(data[1]);
-    // data[2] = decimalHoursToString(data[2]);
-    // data[3] = decimalHoursToString(data[3]);
-
-    // console.log(data)
 
     pie_bar_data =
     {
@@ -206,7 +243,8 @@ function pieBarDataset(events, start_date, end_date)
                     'rgb(255, 205, 86)',
                     '#3cba9f'
                 ],
-                hoverOffset: 4
+                hoverOffset: 4,
+                fill: true,
             }
         ]
     };
