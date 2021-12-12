@@ -250,10 +250,19 @@ function pieBarDataset(events, start_date, end_date)
     };
 }
 
-function setDatasets(from_date, to_date)
+async function setDatasets(from_date, to_date)
 {
+    let events = [];
+
+    let response = await fetch("../events.txt");
+    if (response.status == 200)
+    {
+        let text_data = await response.text();
+        events = JSON.parse(text_data);
+    }
+
     let get_events = sessionStorage.getItem('events');
-    let events = []
+
     if (get_events != null)
         events = JSON.parse(get_events);
 
