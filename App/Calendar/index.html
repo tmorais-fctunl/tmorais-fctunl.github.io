@@ -92,7 +92,7 @@
                       <input type="time" placeholder="Start time" name="Time" id="form_Start_time" onkeydown="return false" required>
                     </div>
                     <div>
-                      <div style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="blink_me">
+                      <div id="form_end_date_div" style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="">
                         <label for="Date-end" style="display:inline-block"><b>End Date:</b></label>
                         <input type="date" placeholder="End date" name "Date-end" min="2021-12-01" max="2021-12-07" id="form_End_date" onkeydown="return false" required>
                         <label for="Time-end" style="display:inline-block"><b>End Time</b></label>
@@ -143,7 +143,7 @@
               </div>
             </div>
           </div>
-        </div>
+
         <div class="whole-page-container" id="ActivityUpdateFormContainer">
           <div class="create-event-container">
             <div class="activityForm">
@@ -160,7 +160,7 @@
                       <input type="time" placeholder="Start time" name="Time" id="updateform_Start_time" onkeydown="return false" required>
                     </div>
                     <div>
-                      <div style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="blink_me">
+                      <div id="updateform_end_date_div" style="display:table-cell; text-align:center; border-radius: 5px; border-style: solid; border-color:lightgray; border-width:2px;box-shadow: 0px 0px 0px -0px; box-sizing: content-box; padding:2px 2px 0px 2px" class="">
                         <label for="Date-end" style="display:inline-block"><b>End Date:</b></label>
                         <input type="date" placeholder="End date" name "Date-end" min="2021-12-01" max="2021-12-07" id="updateform_End_date" onkeydown="return false" required>
                         <label for="Time-end" style="display:inline-block"><b>End Time</b></label>
@@ -207,6 +207,7 @@
                   <p></p>
                   <button type="submit" class="add-btn">Update</button>
                   <button type="button" class="close-btn" onclick="closeUpdateForm()">Cancel</button>
+                  <button type="button" class="delete-btn" onclick="" id="updateform_delete_btn">delete</button>
                 </form>
               </div>
             </div>

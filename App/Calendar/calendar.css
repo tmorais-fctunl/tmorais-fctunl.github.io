@@ -107,7 +107,7 @@
 }
 
 .hovered_task {
-  background-color: #F8FFFF !important; 
+  background-color: #F8FFFF !important;
 }
 
 .task:active {
@@ -166,6 +166,18 @@
 
 .close-btn:active {
   background-color:#FFF1F1;
+}
+
+.delete-btn {
+  background-color:white;
+}
+
+.delete-btn:hover {
+  background-color:#FFF1F1;
+}
+
+.delete-btn:active {
+  background-color:#d80000;
 }
 
 

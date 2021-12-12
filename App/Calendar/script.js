@@ -83,6 +83,9 @@ window.onload = function() {
   document.getElementById("form_Start_date").addEventListener('input', function (evt) {
       DateTimeListenerFunction()
   });
+  document.getElementById("form_Start_date").addEventListener('change', function (evt) {
+      $("#form_end_date_div").addClass("blink_me");
+  });
   document.getElementById("form_Start_time").addEventListener('input', function (evt) {
       DateTimeListenerFunction()
   });
@@ -95,6 +98,10 @@ window.onload = function() {
 
   document.getElementById("updateform_Start_date").addEventListener('input', function (evt) {
       DateTimeListenerFunction()
+  });
+  document.getElementById("updateform_Start_date").addEventListener('change', function (evt) {
+      console.log("AHAH");
+      $("#updateform_end_date_div").addClass("blink_me");
   });
   document.getElementById("updateform_Start_time").addEventListener('input', function (evt) {
       DateTimeListenerFunction()
@@ -247,6 +254,7 @@ function addActivity() {
   task_counter++;
 
   alert("Task successfully added!");
+  $("#form_end_date_div").removeClass("blink_me");
   clearForm();
   closeForm();
 
@@ -367,6 +375,7 @@ function loadTasks() {
     }
   }
   else {
+    alert("Looks like you have no tasks. Don't worry, i'll fill in a few for you. You can update or delete them as you want. If you end up with no tasks at all my programming forces me to fill in some again.")
     uniqueTasks=[];
     generateTasks();
   }
@@ -426,6 +435,30 @@ function loadTask(i) {
       }
     }
   }
+}
+
+function deleteTask(index) {
+  let task = uniqueTasks[index];
+  $('[name="task_'+task.id+'"]').each(function (i, obj) {
+    $(this).remove();
+  });
+  let is = [];
+  for (let i=0; i<tasks.length; i++) {
+    if (tasks[i].id == task.id) {
+      is.push(i);
+    }
+  }
+  for (let i=is.length-1; i>=0; i--) {
+    tasks.splice(is[i],1);
+  }
+  console.log(index);
+  console.log(uniqueTasks);
+  uniqueTasks.splice(index,1);
+  console.log(uniqueTasks);
+  sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  closeUpdateForm();
+  clearUpdateForm();
+
 }
 
 function updateTask(index) {
@@ -526,6 +559,7 @@ function updateTask(index) {
 
   uniqueTasks[index]=task_object;
   sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  $("#updateform_end_date_div").removeClass("blink_me");
   closeUpdateForm();
   clearUpdateForm();
 
@@ -546,11 +580,13 @@ function updateForm(id) {
   $("#updateform_Color").val(task.color);
   $("#updateform_Description").val(task.description);
   $("#ActivityUpdateFormContainer form").attr("onsubmit","updateTask("+task_index+"); return false");
+  $("#updateform_delete_btn").attr("onclick","deleteTask("+task_index+"); return false;")
   console.log($("#ActivityUpdateFormContainer form").attr("onsubmit"));
 }
 
 function closeUpdateForm() {
   clearUpdateForm();
+  $("#updateform_end_date_div").removeClass("blink_me");
   document.getElementById("ActivityUpdateFormContainer").style.display = "none";
 }
 
@@ -572,6 +608,7 @@ function openForm() {
 
 function closeForm() {
   clearForm();
+  $("#form_end_date_div").removeClass("blink_me");
   document.getElementById("activityFormContainer").style.display = "none";
 }
 
