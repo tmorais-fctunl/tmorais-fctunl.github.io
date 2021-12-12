@@ -228,6 +228,7 @@ function deleteFromList(id)
 
 function clearNotes()
 {
+    console.log("clear")
     document.getElementById("pie-new-note").value = "";
     document.getElementById("bar-new-note").value = "";
     document.getElementById("area-new-note").value = "";
@@ -484,7 +485,7 @@ function apply()
 
     reloadGraphs(from_date, to_date);
 
-    clearNotes();
+    clearNotes();   
 
     if (changed_dates)
     {
@@ -520,6 +521,14 @@ $(document).ready(function ()
 {
 
     $("#statistics-to-date").change(changedStatistic);
+
+}
+);
+
+$(document).ready(function ()
+{
+
+    $("#statistics-from-date").change(changedStatistic);
 
 }
 );
