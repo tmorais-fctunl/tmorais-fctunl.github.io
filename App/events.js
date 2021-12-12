@@ -141,4 +141,6 @@ const default_events = [
     }
 ]
 
-sessionStorage.setItem("events",default_events);
+window.onload = function() {
+	sessionStorage.setItem("events",default_events);
+};
