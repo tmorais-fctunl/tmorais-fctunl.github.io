@@ -10,13 +10,15 @@
 </head>
 
 <body style="height:100vh" class="body-2">
-  <div class="div-block-15">
-    <div class="div-block-17"><a href="#" selected="selected" class="apptab w-button">Calendar</a><a href="../Statistics" class="apptab w-button">Statistics</a><a href="../Pomodoro" class="apptab w-button">Pomodoro</a></div>
-    <div id="Preguica" class="div-block-18"></div>
+  <div style="background-color:#986258" class="div-block-15">
+    <div  class="div-block-17"><a href="#" style="background-color:#8bc63e" selected="selected" class="apptab w-button">Calendar</a><a style="background-color:#8bc63e" href="../Statistics" class="apptab w-button">Statistics</a><a style="background-color:#8bc63e" href="../Pomodoro" class="apptab w-button">Pomodoro</a></div>
+    <div style="background-color:#efe8d6 ; display:flex; justify-content:center; align-items:center" id="Preguica" class="div-block-18">
+      <img src="https://cdn.discordapp.com/attachments/894972288892538920/919653229309071360/pregruica.jpg" style="height:100%"></img>
+    </div>
   </div>
   <div class="separatorvertical"></div>
-  <div class="div-block-16">
-    <div class="section-12 wf-section">
+  <div style="background-color:#efe8d6" class="div-block-16">
+    <div style="background-color:#efe8d6" class="section-12 wf-section">
       <div style="display:inline-block; position:relative; width:40px;height:76vh;margin-top:18vh; font-size:10px; color:darkgray">
         <div>00:00</div>
         <div style="position:absolute;top:4.16%">01:00</div>
@@ -44,8 +46,9 @@
         <div style="position:absolute;top:95.68%">23:00</div>
       </div>
       <div class="calendar-container">
-        <form action="/search" class="search w-form"><input type="search" class="search-input w-input" maxlength="256" name="query" placeholder="Search…" id="search" required="" /><input type="submit" value="Search" class="search-button w-button" /></form>
+        <div style="width:100%; background-color:white; height:40px; text-align:center; vertical-align:top">On Time</div>
         <div class="calendar-header"><h1>Paralel Universe December 2021</h1></div>
+
         <div class="calendar">
           <span style="display:table"><div style="display:table-cell; text-align:center" class="day-name">Mon</div><div style="display:table-cell; text-align:center; color:gray" class="day-name">1</div></span>
           <span style="display:table"><div style="display:table-cell; text-align:center" class="day-name">Tue</div><div style="display:table-cell; text-align:center; color:gray" class="day-name">2</div></span>
@@ -77,8 +80,8 @@
         </div>
 
         <div class="whole-page-container" id="activityFormContainer">
-          <div class="create-event-container">
-            <div class="activityForm">
+          <div style="background-color:#efe8d6" class="create-event-container">
+            <div class="activityForm" style="background-color:#efe8d6; height:100%; font-size:20px">
               <form onsubmit="addActivity(); return false" class="form-container" style="text-align:center">
                 <label for="Name" style="display:inline-block"><b>Name</b></label>
                 <p>
@@ -145,8 +148,8 @@
           </div>
 
         <div class="whole-page-container" id="ActivityUpdateFormContainer">
-          <div class="create-event-container">
-            <div class="activityForm">
+          <div style="background-color:#efe8d6" class="create-event-container">
+            <div class="activityForm" style="background-color:#efe8d6; height:100%; font-size:20px">
               <form onsubmit="; return false" class="form-container" style="text-align:center">
                 <label for="Name" style="display:inline-block"><b>Name</b></label>
                 <p>

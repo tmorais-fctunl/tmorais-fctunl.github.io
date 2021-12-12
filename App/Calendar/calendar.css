@@ -130,54 +130,54 @@
   width:9vw;
   height:9vh;
   display:inline-block;
-  background-color: rgba(44, 80, 42, 0.71); /*escolha da bruna*/
+  background-color: #8bc63e; /*escolha da bruna*/
   border-radius: 10px 10px 10px 10px;
   box-shadow: 2px 2px 5px -1px rgba(44, 80, 42, 0.99);
   font-size:20px;
 }
 
 .btn-create-event:hover {
-  background-color: rgba(44, 80, 42, 0.80)
+  background-color: #6d9c30
 }
 
 .btn-create-event:active {
-  background-color: rgba(44, 80, 42, 0.90)
+  background-color: #4c6e21
 }
 
 .add-btn {
-  background-color:white;
-}
-
-.add-btn:hover {
-  background-color:#F0F0F0;
-}
-
-.add-btn:active {
   background-color:#F1FFF1;
 }
 
+.add-btn:hover {
+  background-color:#d3edd3;
+}
+
+.add-btn:active {
+  background-color:#b2d4b2;
+}
+
 .close-btn {
-  background-color:white;
+  background-color:#FFF1F1;
 }
 
 .close-btn:hover {
-  background-color:#F0F0F0;
+  background-color:#edd3d3;
 }
 
 .close-btn:active {
-  background-color:#FFF1F1;
+  background-color:#dbb8b8;
 }
 
 .delete-btn {
-  background-color:white;
+  background-color:#c40404;
 }
 
 .delete-btn:hover {
-  background-color:#FFF1F1;
+  background-color:#990202;
 }
 
 .delete-btn:active {
-  background-color:#d80000;
+  background-color:#7a1515;
 }
 
 
@@ -188,6 +188,22 @@
   width:80vw;
   height:100vh;
   z-index:3;
+}
+
+.whole-page-container label {
+  font-size:15px;
+}
+
+.whole-page-container input {
+  background-color:#f0f5e1;
+}
+
+.whole-page-container select {
+  background-color:#f0f5e1;
+}
+
+.whole-page-container textarea {
+  background-color:#f0f5e1;
 }
 
 .create-event-container {
