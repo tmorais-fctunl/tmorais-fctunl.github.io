@@ -1,5 +1,5 @@
 
-let statistics = [];
+let statistics;
 let current_statistic = null;
 let temp_statistic = null;
 let changed_dates = false;
@@ -67,8 +67,6 @@ function start_statistics()
     else
     {
         statistics = JSON.parse(get_statistics);
-        for (let i = 0; i < statistics.length; i++)
-            addStatisticToDivList(statistics[i].from_date, statistics[i].to_date, statistics[i].id);
 
         current_statistic = sessionStorage.getItem('current_statistic');
         if (current_statistic != null && current_statistic != 'null')
@@ -85,6 +83,9 @@ function start_statistics()
             to_date.value = dates.to;
         }
     }
+
+    for (let i = 0; i < statistics.length; i++)
+        addStatisticToDivList(statistics[i].from_date, statistics[i].to_date, statistics[i].id);
 
     reloadGraphs(from_date.value, to_date.value);
     updateStatistics_SS();
@@ -219,7 +220,10 @@ function deleteFromNotesList(id)
 function deleteFromList(id)
 {
     var item = document.getElementById(id);
-    item.parentNode.removeChild(item);
+    while (item.firstChild)
+        item.firstChild.remove()
+
+        item.parentNode.removeChild(item);
 }
 
 function clearNotes()
@@ -229,19 +233,34 @@ function clearNotes()
     document.getElementById("area-new-note").value = "";
 
     var list = document.getElementById("pie-notes-list");
-    var elems = list.getElementsByTagName("li");
-    for (let i = 0; i < elems.length; i++)
-        deleteFromList(elems[i].id);
+    elems = list.getElementsByTagName("li");
+    while (elems.length > 0)
+    {
+        elems = list.getElementsByTagName("li");
+
+        for (let i = 0; i < elems.length; i++)
+            deleteFromList(elems[i].id);
+    }
 
     list = document.getElementById("bar-notes-list");
     elems = list.getElementsByTagName("li");
-    for (let i = 0; i < elems.length; i++)
-        deleteFromList(elems[i].id);
+    while (elems.length > 0)
+    {
+        elems = list.getElementsByTagName("li");
+
+        for (let i = 0; i < elems.length; i++)
+            deleteFromList(elems[i].id);
+    }
 
     list = document.getElementById("area-notes-list");
     elems = list.getElementsByTagName("li");
-    for (let i = 0; i < elems.length; i++)
-        deleteFromList(elems[i].id);
+    while (elems.length > 0)
+    {
+        elems = list.getElementsByTagName("li");
+
+        for (let i = 0; i < elems.length; i++)
+            deleteFromList(elems[i].id);
+    }
 }
 
 function setStatisticNotes()
@@ -481,7 +500,7 @@ function apply()
         current_statistic = null;
     }
 
-    if(current_statistic != null)
+    if (current_statistic != null)
         setStatisticNotes();
 
     updateCurrentStatistic_SS();
@@ -493,7 +512,7 @@ let changedStatistic = function ()
 
     if (checkValidDates())
         clearNotes();
-  
+
     current_statistic = null;
 };
 
