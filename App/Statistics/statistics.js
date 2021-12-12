@@ -149,6 +149,10 @@ function saveNote(graph)
             temp_statistic.notes.area.push(note);
     }
 
+    document.getElementById("pie-new-note").value = "";
+    document.getElementById("bar-new-note").value = "";
+    document.getElementById("area-new-note").value = "";
+
     addNote_ToDiv(list, suf, text);
     updateStatistics_SS();
 }
@@ -479,14 +483,18 @@ function apply()
 
     if(current_statistic != null)
         setStatisticNotes();
+
     updateCurrentStatistic_SS();
 }
 
 let changedStatistic = function ()
 {
     changed_dates = true;
-    if (checkValidDates() && current_statistic != null)
+
+    if (checkValidDates())
         clearNotes();
+  
+    current_statistic = null;
 };
 
 $(document).ready(function ()
