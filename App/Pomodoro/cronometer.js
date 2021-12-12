@@ -13,16 +13,16 @@ const COLOR_CODES = {
   
 
 let selectedTimer1 = {
-    work : "00:00:05", pause : "00:00:03", cycles: 3, name: "jigubigule", description: "tchucaxuxufcbtybbtvvvbnbg", category: "Gaming" 
+    work : "00:00:05", pause : "00:00:03", cycles: 3, name: "quick match", description: "time for some quick games", category: "Gaming" 
 };
 let selectedTimer2 = {
-    work : "01:00:00", pause : "00:10:00", cycles: 2, name: "deez nuts", description: "as minhas nozes", category: "Sleeping" 
+    work : "01:00:00", pause : "00:10:00", cycles: 2, name: "mission: summer", description: "getting ripped until summer", category: "Exercising" 
 };
 let selectedTimerIndex = -1;
 let newSelectedTimerIndex = -1;
 let getSelectedTimerIndex = sessionStorage.getItem('pomodoro_selectedTimerIndex');
 let timers = null;
-let newTimers = [selectedTimer1, selectedTimer2, selectedTimer1, selectedTimer2, selectedTimer1, selectedTimer2, selectedTimer1];
+let newTimers = [selectedTimer1, selectedTimer2];
 let getTimers = sessionStorage.getItem('pomodoro_timers');
 if(getTimers == null) {
   console.log("first");
@@ -241,8 +241,8 @@ function startTimer2() {
             description:timers[selectedTimerIndex].description,
             start_date:startDate.getDate(),
             end_date:endDate.getDate(),
-            start_time:`${startHour}:${startMinute}`,
-            end_time:`${endHour}:${endMinute}`,
+            start_time:[startHour, startMinute],
+            end_time:[endHour, endMinute],
             start_date_time:startString,
             end_date_time:endString
           };
