@@ -249,7 +249,7 @@ function setDatasets(from_date, to_date)
     if (get_events != null)
         events = JSON.parse(get_events);
 
-    sessionStorage.setItem('events', JSON.strigify(events));
+    sessionStorage.setItem('events', JSON.stringify(events));
 
     let start_date = new Date(from_date);
     let end_date = new Date(to_date);
