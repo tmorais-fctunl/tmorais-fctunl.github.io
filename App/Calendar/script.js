@@ -1,5 +1,5 @@
 var canTrigger = true;
-var task_counter = 0;
+var task_counter = sessionStorage.getItem('task_counter');
 let notifications = ["Never","5min","10min","30min","1h","1day"];
 let frequencies = ["None","Every day"];
 let categories = ["Studying","Gaming","Sleeping","Exercising"];
@@ -190,6 +190,8 @@ function addActivity() {
 
   var duration = [];
   let day_dur = parseInt(end_day)-parseInt(start_day);
+  if (day_dur != 0)
+    freq = "None";
 
   if (day_dur==0)
     duration[0] = Math.abs((end_hour+(end_min/60)) - (start_hour+(start_min/60)));
@@ -205,6 +207,7 @@ function addActivity() {
   let top_pos = 4.18*(parseInt(start_hour)+(parseInt(start_min)/60));
   let fst_height = 4.18*duration[0];
   let lst_height = 4.18*duration[day_dur];
+  task_counter = sessionStorage.getItem("task_counter");
   let id = task_counter;
 
   //If the activity spreads over one day
@@ -263,7 +266,7 @@ function addActivity() {
         fst_height = 1;
       pushTask(id,i,0,top_pos,fst_height,width,"",color,name,description);
       let task_object = {
-        id:id,
+        id:task_counter++,
         name:name,
         category:categories[category],
         frequency:frequencies[freq],
@@ -278,12 +281,12 @@ function addActivity() {
         end_date_time:"2021-12-0"+i+"T"+end_time
         }
         uniqueTasks.push(task_object);
-        task_counter++;
+
     }
   }
 
   sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
-
+  sessionStorage.setItem("task_counter",task_counter);
 
 
   alert("Task successfully added!");
@@ -394,11 +397,12 @@ function generateTasks() {
     loadTask(uniqueTasks.indexOf(gen_tasks[i]));
   }
   sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  sessionStorage.setItem("task_counter",task_counter);
 }
 
 //Script for loading saved tasks in local-storage
 function loadTasks() {
-  task_counter = 0;
+  task_counter = sessionStorage.getItem("task_counter");
   uniqueTasks = JSON.parse(sessionStorage.getItem("Calendar_tasks"));
   //Run through local-storage tasks
   if (uniqueTasks!=null) {
@@ -408,6 +412,8 @@ function loadTasks() {
     }
   }
   else {
+    sessionStorage.setItem("task_counter",0);
+    task_counter = 0;
     alert("Looks like you have no tasks. Don't worry, i'll fill in a few for you. You can update or delete them as you want. If you end up with no tasks at all my programming forces me to fill in some again.")
     uniqueTasks=[];
     generateTasks();
