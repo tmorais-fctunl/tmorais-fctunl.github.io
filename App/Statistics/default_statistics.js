@@ -1,1 +1,2 @@
-const default_statistics = [{"from_date":"2021-12-05T00:00","to_date":"2021-12-12T00:00","id":3,"notes":{"pie":[{"text":"121212","id":0}],"bar":[{"text":"22222","id":0}],"area":[]}},{"from_date":"2021-12-11T00:00","to_date":"2021-12-12T00:00","id":4,"notes":{"pie":[],"bar":[],"area":[]}}]
+const default_statistics = [{"from_date":"2021-12-05T00:00","to_date":"2021-12-08T00:00","id":3,"notes":{"pie":[{"text":"121212","id":0}],"bar":[{"text":"22222","id":0}],"area":[]}}
+,{"from_date":"2021-12-03T00:00","to_date":"2021-12-06T00:00","id":4,"notes":{"pie":[],"bar":[],"area":[]}}]
