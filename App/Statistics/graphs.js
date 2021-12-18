@@ -80,7 +80,7 @@ function areaDataset(events, start_date, end_date)
 
     for (let i = 0; i < num__of_intervals + 1; i++)
     {
-        labels.push(intervals[i].toDateString());
+        labels.push(intervals[i].toDateString() + ", " + (intervals[i].getHours() < 10 ? "0" : "") + intervals[i].getHours() +":"+ (intervals[i].getMinutes() < 10 ? "0" : "") + intervals[i].getMinutes());
         data[0].push(0);
         data[1].push(0);
         data[2].push(0);
