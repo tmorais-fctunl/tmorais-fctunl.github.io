@@ -395,8 +395,8 @@ function createTimer() {
   }
   selectedTimerIndex =  -1;
   sessionStorage.setItem('pomodoro_selectedTimerIndex', selectedTimerIndex);
-  document.getElementById("time-to-work").value = null;
-  document.getElementById("Time-To-Break").value = null;
+  document.getElementById("time-to-work").value = "00:00:00";
+  document.getElementById("Time-To-Break").value = "00:00:00";
   document.getElementById("Number-of-cycles").value = null;
   document.getElementById("name").value = "";
   document.getElementById("field").value = "";
