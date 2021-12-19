@@ -40,7 +40,7 @@
                 <div style="height:80%;display: grid; grid-template-columns: 50% 50%">
                     <div style="display: flex;flex-direction: column; align-items: center">
                         <label for="time-to-work"> Work: </label> 
-                        <input type="time" value="00:00:00" step="1" name="time-to-work" id="time-to-work" class="text-field-4 w-input" required style="width:90%;background-color: #f0f5e1"/>  
+                        <input type="time" value="00:00:00" min="00:00:01" step="1" name="time-to-work" id="time-to-work" class="text-field-4 w-input" required style="width:90%;background-color: #f0f5e1"/>  
                     </div> 
                     <div style="display: flex;flex-direction: column; align-items: center">
                         <label for="name">Choose the name of your new pomodoro:</label>
@@ -48,7 +48,7 @@
                     </div>  
                     <div style="display: flex;flex-direction: column; align-items: center">
                         <label for="Time-To-Break">Pause:</label>
-                        <input type="time" value="00:00:00" step="1" name="Time-To-Break" id="Time-To-Break" class="text-field-5 w-input" required style="width:90%;background-color: #f0f5e1"/>
+                        <input type="time" value="00:00:00" min="00:00:01" step="1" name="Time-To-Break" id="Time-To-Break" class="text-field-5 w-input" required style="width:90%;background-color: #f0f5e1"/>
                     </div>
                     <div style="display: flex;flex-direction: column; align-items: center">
                         <label for="field">Description:</label>
@@ -56,7 +56,7 @@
                     </div>
                     <div style="display: flex;flex-direction: column; align-items: center">
                         <label for="Number-of-cycles">Cycles:</label>
-                        <input type="number" min="1" name="Number-of-cycles" id="Number-of-cycles" class="text-field-6 w-input" required style="width:90%;background-color: #f0f5e1"/>
+                        <input type="number" min="1" max="100" name="Number-of-cycles" id="Number-of-cycles" class="text-field-6 w-input" required style="width:90%;background-color: #f0f5e1"/>
                     </div>
                     <div style="display: flex;flex-direction: column; align-items: center">
                         <label for="Category">Category:</label>
