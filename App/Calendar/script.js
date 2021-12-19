@@ -23,10 +23,10 @@ function DateTimeListenerFunction() {
     endMinDateCondition = currDate;
     endCurrTime = $("#form_End_time").val();
     endCurrDate = $("#form_End_date").val();
-    console.log(currDate),
+    //console.log(currDate),
     //update end-date if the start-date interferes
     $('#form_End_date').prop('min', endMinDateCondition);
-    $('#form_End_time').prop('min', endMinTimeCondition);
+
 
     if (endCurrDate < endMinDateCondition || (endMinDateCondition == endCurrDate && endCurrTime < endMinTimeCondition)) {
         console.log("Updated the end-date because the start-date surpassed it");
@@ -36,11 +36,11 @@ function DateTimeListenerFunction() {
     }
 
     if (new Date($("#form_End_date").val()).getDate() != new Date($("#form_Start_date").val()).getDate()) {
-      console.log("ha");
+      //console.log("ha");
       $("#form_Frequency").prop("disabled",true);
     }
     else {
-      console.log("oh");
+      //console.log("oh");
       $("#form_Frequency").prop("disabled",false);
     }
 
@@ -57,10 +57,18 @@ function DateTimeListenerFunction() {
     endMinDateCondition = currDate;
     endCurrTime = $("#updateform_End_time").val();
     endCurrDate = $("#updateform_End_date").val();
-    console.log(currDate),
+    //console.log(currDate),
     //update end-date if the start-date interferes
     $('#updateform_End_date').prop('min', endMinDateCondition);
     $('#updateform_End_time').prop('min', endMinTimeCondition);
+
+    if (endCurrDate == currDate) {
+      //console.log(endCurrDate);
+      //console.log(currDate);
+      $('#updateform_End_time').prop('min', endMinTimeCondition);
+    }
+    else
+      $('#updateform_End_time').prop('min', "");
 
     if (endCurrDate < endMinDateCondition || (endMinDateCondition == endCurrDate && endCurrTime < endMinTimeCondition)) {
         console.log("Updated the end-date because the start-date surpassed it");
@@ -70,11 +78,11 @@ function DateTimeListenerFunction() {
     }
 
     if (new Date($("#updateform_End_date").val()).getDate() != new Date($("#updateform_Start_date").val()).getDate()) {
-      console.log("ha");
+      //console.log("ha");
       $("#updateform_Frequency").prop("disabled",true);
     }
     else {
-      console.log("oh");
+      //console.log("oh");
       $("#updateform_Frequency").prop("disabled",false);
     }
 
@@ -101,7 +109,7 @@ window.onload = function() {
       DateTimeListenerFunction()
   });
   document.getElementById("updateform_Start_date").addEventListener('change', function (evt) {
-      console.log("AHAH");
+      //console.log("AHAH");
       $("#updateform_end_date_div").addClass("blink_me");
   });
   document.getElementById("updateform_Start_time").addEventListener('input', function (evt) {
@@ -120,14 +128,14 @@ window.onload = function() {
 
 function taskLeftPos(start_day, top_pos, duration){
   let width = 0;
-  console.log(tasks);
+  //console.log(tasks);
   for (let n=0; n<tasks.length; n++){
-    console.log("POS: "+top_pos+" TASK "+n+" POS: "+tasks[n].pos+" POS+DURATION "+parseInt(parseInt(tasks[n].pos)+parseInt(tasks[n].duration)))
+    //console.log("POS: "+top_pos+" TASK "+n+" POS: "+tasks[n].pos+" POS+DURATION "+parseInt(parseInt(tasks[n].pos)+parseInt(tasks[n].duration)))
     if (tasks[n].day == start_day) {
-      console.log("a");
+      //console.log("a");
       if((top_pos <= tasks[n].pos && tasks[n].pos <= top_pos+duration) || (top_pos <= tasks[n].pos+tasks[n].duration && tasks[n].pos+tasks[n].duration <= top_pos+duration)
         || (tasks[n].pos <= top_pos && top_pos <= tasks[n].pos+tasks[n].duration) || (tasks[n].pos <= top_pos+duration && top_pos+duration <= tasks[n].pos+tasks[n].duration)) {
-          console.log("b");
+          //console.log("b");
           width += tasks[n].width;
       }
     }
@@ -161,7 +169,7 @@ function declareTaskTriggerHandlers(id,i) {
 }
 
 function pushTask(id,start_day,i,pos,height,width,subtaskclass,color,name,description) {
-  console.log("Push Task day:"+start_day+" with height: "+height);
+  //console.log("Push Task day:"+start_day+" with height: "+height);
   //let task = '<div name="task_'+id+'" id="task_'+id+'_'+i+'" style="position:absolute; top:'+pos+'%; left:'+width+'%; height:'+height+'%; border-left-color:'+color+'; color:black" class="task '+subtaskclass+'">'+name+'<p style="margin-top:10px; color:darkgray">'+description+'</p></div>';
   let task = '<div name="task_'+id+'" id="task_'+id+'_'+i+'" style="position:absolute; top:'+pos+'%; left:'+width+'%; height:'+height+'%; border-left-color:'+color+'; color:black" class="task '+subtaskclass+'">'+name+'</div>';
   $("#day-"+(start_day)).append(task);
@@ -209,10 +217,10 @@ function addActivity() {
   let lst_height = 4.18*duration[day_dur];
   task_counter = sessionStorage.getItem("task_counter");
   let id = task_counter;
-
+  let width = 0;
   //If the activity spreads over one day
   if (day_dur == 0) {
-    let width = 0;
+
     width = taskLeftPos(start_day, top_pos, fst_height);
     if (fst_height==0)
       fst_height = 1;
@@ -222,7 +230,6 @@ function addActivity() {
   else {
     for (let i=0; i<day_dur+1; i++) {
       console.log("Now adding day:"+ (start_day + i));
-      let width = 0;
       if (i==0) {
         width = taskLeftPos(start_day+i, top_pos, fst_height);
         pushTask(id,start_day+i,i,top_pos,fst_height-2,width,"task-fst",color,name, description);
@@ -251,8 +258,8 @@ function addActivity() {
     end_date:end_day,
     start_time:start_time,
     end_time:end_time,
-    start_date_time:"2021-12-0"+start_day+"T"+start_time,
-    end_date_time:"2021-12-0"+end_day+"T"+end_time
+    start_date_time:"2021-12-0"+start_day+"T"+start_time[0]+":"+start_time[1],
+    end_date_time:"2021-12-0"+end_day+"T"+end_time[0]+":"+end_time[1]
     }
 
   uniqueTasks.push(task_object);
@@ -260,7 +267,7 @@ function addActivity() {
 
   if (freq == "Every day"){
     for (let i=start_day+1; i<8; i++) {
-      let width = 0;
+      width = 0;
       width = taskLeftPos(start_day, top_pos, fst_height);
       if (fst_height==0)
         fst_height = 1;
@@ -277,8 +284,8 @@ function addActivity() {
         end_date:i,
         start_time:start_time,
         end_time:end_time,
-        start_date_time:"2021-12-0"+i+"T"+start_time,
-        end_date_time:"2021-12-0"+i+"T"+end_time
+        start_date_time:"2021-12-0"+start_day+"T"+start_time[0]+":"+start_time[1],
+        end_date_time:"2021-12-0"+end_day+"T"+end_time[0]+":"+end_time[1]
         }
         uniqueTasks.push(task_object);
 
@@ -290,7 +297,13 @@ function addActivity() {
 
 
   alert("Task successfully added!");
-  $("#form_end_date_div").removeClass("blink_me");
+  $("#form_end_date_div").removeClass("blink_me-activity");
+  $('[name^="task_'+id+'"]').addClass("blink_me-activity");
+  setTimeout(function() {   //calls click event after a certain time
+   $('[name^="task_'+id+'"]').removeClass("blink_me-activity");
+  }, 6000);
+  //alert(width);
+  document.getElementById("day-"+start_day).scroll(width,0);
   clearForm();
   closeForm();
 
@@ -391,7 +404,7 @@ function generateTasks() {
       end_date_time:"2021-12-07T23:55"
     }
   ];
-  console.log(uniqueTasks);
+  //console.log(uniqueTasks);
   for (let i=0; i<gen_tasks.length; i++) {
     uniqueTasks.push(gen_tasks[i]);
     loadTask(uniqueTasks.indexOf(gen_tasks[i]));
@@ -497,10 +510,10 @@ function deleteTask(index) {
   for (let i=is.length-1; i>=0; i--) {
     tasks.splice(is[i],1);
   }
-  console.log(index);
-  console.log(uniqueTasks);
+  //console.log(index);
+  //console.log(uniqueTasks);
   uniqueTasks.splice(index,1);
-  console.log(uniqueTasks);
+  //console.log(uniqueTasks);
   sessionStorage.setItem("events",JSON.stringify(uniqueTasks));
   closeUpdateForm();
   clearUpdateForm();
@@ -529,6 +542,7 @@ function updateTask(index) {
   let end_date = new Date($("#updateform_End_date").val()).getDate();
   let start_time = $("#updateform_Start_time").val().split(":");
   let end_time = $("#updateform_End_time").val().split(":");
+  console.log(start_time);
   let freq = $("#updateform_Frequency").val();
   let category = $("#updateform_Category").val();
   let notif = $("#updateform_Notification").val();
@@ -559,10 +573,9 @@ function updateTask(index) {
   let fst_height = 4.18*duration[0];
   let lst_height = 4.18*duration[day_dur];
   let id = task.id;
-
+  let width = 0;
   //If the activity spreads over one day
   if (day_dur == 0) {
-    let width = 0;
     width = taskLeftPos(start_date, top_pos, fst_height);
     if (fst_height==0)
       fst_height = 1;
@@ -572,7 +585,6 @@ function updateTask(index) {
   else {
     for (let i=0; i<day_dur+1; i++) {
       console.log("Now adding day:"+ (start_date + i));
-      let width = 0;
       if (i==0) {
         width = taskLeftPos(start_date+i, top_pos, fst_height);
         pushTask(id,start_date+i,i,top_pos,fst_height-2,width,"task-fst",color,name,description);
@@ -600,13 +612,19 @@ function updateTask(index) {
     end_date:end_date,
     start_time:start_time,
     end_time:end_time,
-    start_date_time:"0"+start_date+"-12-2021T"+start_time,
-    end_date_time:"0"+end_date+"-12-2021T"+end_time
+    start_date_time:"2021-12-0"+start_date+"T"+start_time[0]+":"+start_time[1],
+    end_date_time:"2021-12-0"+end_date+"T"+end_time[0]+":"+end_time[1]
     }
 
   uniqueTasks[index]=task_object;
-  sessionStorage.setItem("Calendar_tasks",JSON.stringify(uniqueTasks));
+  sessionStorage.setItem("events",JSON.stringify(uniqueTasks));
   $("#updateform_end_date_div").removeClass("blink_me");
+  $('[name^="task_'+id+'"]').addClass("blink_me-activity");
+  setTimeout(function() {   //calls click event after a certain time
+   $('[name^="task_'+id+'"]').removeClass("blink_me-activity");
+  }, 6000);
+  //alert(width);
+  document.getElementById("day-"+start_date).scroll(width,0);
   closeUpdateForm();
   clearUpdateForm();
 
@@ -616,6 +634,7 @@ function updateForm(id) {
   document.getElementById("ActivityUpdateFormContainer").style.display = "block";
   let task = uniqueTasks.find(element => element.id==id);
   let task_index = uniqueTasks.indexOf(task);
+  console.log(task);
   $("#updateform_Name").val(task.name);
   $("#updateform_Start_date").val("2021-12-0"+task.start_date);
   $("#updateform_End_date").val("2021-12-0"+task.end_date);
@@ -627,8 +646,8 @@ function updateForm(id) {
   //$("#updateform_Color").val(task.color);
   $("#updateform_Description").val(task.description);
   $("#ActivityUpdateFormContainer form").attr("onsubmit","updateTask("+task_index+"); return false");
-  $("#updateform_delete_btn").attr("onclick","deleteTask("+task_index+"); return false;")
-  console.log($("#ActivityUpdateFormContainer form").attr("onsubmit"));
+  $("#updateform_delete_btn").attr("onclick","deleteTask("+task_index+"); return false;");
+  //console.log($("#ActivityUpdateFormContainer form").attr("onsubmit"));
 }
 
 function closeUpdateForm() {

@@ -242,3 +242,22 @@
     box-shadow: 2px 2px 5px -1px
   }
 }
+
+.waitingForConnection {
+  -webkit-animation-name: blinker-activity;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+  -webkit-animation-duration: 1.7s;
+}
+
+.blink_me-activity {
+  animation: blinker-activity 1s linear 5; /*Not infinite*/
+}
+
+@keyframes blinker-activity {
+  50% {
+    border-style: solid;
+    border-color:rgb(21,43,91);
+    box-shadow: 2px 2px 5px -1px;
+  }
+}
